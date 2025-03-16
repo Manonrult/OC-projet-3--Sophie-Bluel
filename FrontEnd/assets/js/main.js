@@ -113,3 +113,4 @@ function afficherGalerie(works) {
         galleryDiv.appendChild(figureElement);
     });
 }
+
