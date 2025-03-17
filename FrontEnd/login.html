@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sophie Bluel - Architecte d'intérieur</title>
+    <title>Connexion - Sophie Bluel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,43 +18,38 @@
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
         <nav>
             <ul>
-                <li>projets</li>
-                <li>contact</li>
-                <li>login</li>
-                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+                <li><a href="index.html">Accueil</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <div id="connexion-container">
-            <section id="login">
-                <h2>Log In</h2>
-                <span id="message-erreur" class="hidden"></span>
-                <!-- Élément pour les messages d'erreur (caché par défaut) -->
-                <form action="#" method="post" class="form-login"> <!-- Classe "form-login" pour le formulaire -->
-                    <!-- Label et champ pour l'E-mail -->
-                    <label for="email" class="label-above" id="email-label">E-mail</label>
-                    <!-- Classes "label-above" et ID "email-label" pour le label Email -->
-                    <div class="input-container"> <!-- Classe "input-container" pour le conteneur de l'input Email -->
-                        <input type="email" name="email" id="email" required> <!-- Input Email avec ID "email" -->
-                    </div>
+        <section id="connexion-container">
+            <h2>Connexion</h2>
+            <span id="message-erreur" class="hidden"></span>
 
-                    <!-- Label et champ pour le Mot de passe -->
-                    <label for="password" class="label-above" id="password-label">Mot de passe</label>
-                    <!-- Classes "label-above" et ID "password-label" pour le label Mot de passe -->
-                    <div class="input-container">
-                        <!-- Classe "input-container" pour le conteneur de l'input Mot de passe -->
-                        <input type="password" name="password" id="password" required>
-                        <!-- Input Mot de passe avec ID "password" -->
-                    </div>
+            <form action="#" method="post" class="form-login">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" required>
 
-                    <!-- Bouton de connexion -->
-                    <button type="submit">Se connecter</button> <!-- Bouton de soumission du formulaire -->
-                </form>
-            </section>
-        </div>
-        <script src="assets/js/main.js"></script>
-        <script src="assets/js/login.js"></script>
+                <label for="password">Mot de passe</label>
+                <input type="password" name="password" id="password" required>
+
+                <button type="submit">Se connecter</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <nav>
+            <ul>
+                <li>Mentions Légales</li>
+            </ul>
+        </nav>
+    </footer>
+
+    <!-- Ajout de `defer` pour éviter les erreurs liées au DOM -->
+    <script defer src="assets/js/login.js"></script>
 </body>
 
 </html>
