@@ -1,4 +1,37 @@
 // modal.js
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("modal1"); // Sélectionne la modale
+    const openModalBtn = document.getElementById("modifier-button"); // Bouton Modifier
+    const closeModalBtn = document.querySelector(".modal-close"); // Bouton de fermeture
+    const modalOverlay = document.querySelector(".modal-overlay"); // Fond noir de la modale
+
+    // 🔹 Assurer que la modale est bien cachée au chargement
+    if (modal) {
+        modal.style.display = "none";
+    }
+
+    // 🔹 Afficher la modale au clic sur le bouton Modifier
+    if (openModalBtn) {
+        openModalBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            modal.style.display = "block";
+        });
+    }
+
+    // 🔹 Fermer la modale au clic sur la croix
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+    }
+
+    // 🔹 Fermer la modale en cliquant sur le fond noir
+    if (modalOverlay) {
+        modalOverlay.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+    }
+});
 
 console.log("modal.js chargé !"); // AJOUTE CE CONSOLE.LOG - TEST INITIAL
 
