@@ -13,30 +13,37 @@
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 
-<body>
+<body class="login-page">
+
     <header>
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html">projets</a></li>
+                <li>contact</li>
+                <li><a href="login.html">login</a></li>
+                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="connexion-container">
-            <h2>Connexion</h2>
+            <h2>Log in</h2>
             <span id="message-erreur" class="hidden"></span>
 
             <form action="#" method="post" class="form-login">
-                <label for="email">E-mail</label>
+                <label for="email" class="label-above">E-mail</label>
                 <input type="email" name="email" id="email" required>
 
-                <label for="password">Mot de passe</label>
+                <label for="password" class="label-above">Mot de passe</label>
                 <input type="password" name="password" id="password" required>
 
+
                 <button type="submit">Se connecter</button>
+                <a href="#" id="forgot-password">Mot de passe oublié</a>
             </form>
+
         </section>
     </main>
 

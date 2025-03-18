@@ -117,7 +117,13 @@ ul {
 }
 
 a {
-
+	font-weight: inherit;
+	/* Garde le style du texte normal */
+	color: inherit;
+	/* Garde la couleur du texte normal */
+	text-decoration: none;
+	/* Enlève le soulignement */
+	
 	text-decoration: none;
 }
 
@@ -296,105 +302,172 @@ footer nav ul {
 	margin: 2em
 }
 
+/* 🔹 Appliquer uniquement sur login.html */
 
-
-/* connexion  */
-header {
-	position: relative;
-	z-index: 2000;
+/* ✅ Assurer que le header garde son espacement */
+body.login-page header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 20px 50px;
 }
 
-#login {
-	position: fixed;
-	top: 0;
-	left: 0;
+/* ✅ Tous les liens du header en noir (pas gras) */
+body.login-page nav ul li a {
+	font-weight: normal;
+	/* Texte normal, pas en gras */
+	color: black;
+	/* Couleur noire */
+	text-decoration: none;
+	/* Pas de soulignement */
+}
+
+/* ✅ Mettre "Login" en noir et gras dans le header sur la page de connexion */
+body.login-page nav ul li a[href="login.html"] {
+	font-weight: 700;
+	/* Gras */
+	color: black;
+	/* Noir */
+}
+
+/* ✅ Changement de couleur au survol (y compris "Login") */
+body.login-page nav ul li a:hover {
+	color: #B1663C;
+	/* Changement de couleur au survol */
+}
+
+/* ✅ Espacer correctement les liens du header */
+body.login-page nav ul {
+	display: flex;
+	align-items: center;
+	gap: 40px;
+	/* 40px entre chaque élément */
+}
+
+/* ✅ Ajouter un espacement supplémentaire après Instagram */
+body.login-page nav ul li:last-child {
+	margin-left: 13px;
+	/* Ajoute 13px pour arriver à 53px au total */
+}
+
+body.login-page #connexion-container h2 {
+	margin-bottom: 60px;
+}
+
+/* ✅ Corriger l’alignement du conteneur de connexion */
+body.login-page #connexion-container {
+	position: absolute;
+	top: 246px;
+	/* Distance correcte sous le header */
+	left: 50%;
+	transform: translateX(-50%);
+	width: 380px;
+	text-align: center;
+}
+
+/* ✅ Espacer correctement les éléments du formulaire */
+body.login-page #connexion-container form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 379px;
+	gap: 15px;
+	/* Ajoute de l’espace entre les inputs */
+	margin-bottom: 20px;
+}
+
+/* ✅ Correction de l’espacement entre le label et l’input */
+body.login-page .label-above {
+	display: block;
 	width: 100%;
-	z-index: 1000;
-	height: 100vh;
-	padding: 20px;
-	box-sizing: border-box;
-	overflow-y: auto;
+	text-align: left;
+	font-size: 14px;
+	font-weight: 500;
+	margin-bottom: -7px;
+	padding-left: 5px;
+	/* Décalage à gauche */
+}
+
+/* ✅ Correction des inputs */
+body.login-page input[type="email"],
+body.login-page input[type="password"] {
+	width: 379px;
+	height: 36px;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+/* ✅ Bouton "Se connecter" bien espacé */
+body.login-page #connexion-container button[type="submit"] {
+	width: 179px;
+	height: 36px;
+	border-radius: 60px;
+	background: rgba(29, 97, 84, 1);
+	color: white;
+	border: none;
+	font-family: 'Syne', sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	cursor: pointer;
+	display: block;
+	margin: 20px auto 28px auto;
+	text-align: center;
+}
+
+/* ✅ "Mot de passe oublié" bien positionné sous le bouton */
+body.login-page #forgot-password {
+	display: block;
+	font-size: 14px;
+	font-weight: 500;
+	color: black;
+	text-decoration: underline;
+	text-align: center;
+	margin-top: 28px;
+	/* Distance correcte sous le bouton */
+}
+
+/* ✅ S'assurer que le `body` prend toute la hauteur de l'écran */
+body.login-page {
+	min-height: 100vh;
+	/* S'assure que le body occupe toute la hauteur */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	/* Garde le footer en bas */
+}
+
+/* ✅ Forcer le `main` à prendre l'espace restant */
+body.login-page main {
+	flex-grow: 1;
+	/* Prend tout l'espace restant et pousse le footer vers le bas */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	text-align: center;
 }
 
-/* Titre h2 : marge de 60px en bas pour espacer du premier label */
-#login h2 {
-	margin-top: 0;
-	margin-bottom: 60px;
-
-
-}
-
-/* Le formulaire est centré et fait la largeur nécessaire aux conteneurs */
-#login form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 379px;
-	/* Largeur adaptée aux conteneurs */
-	margin-bottom: 20px;
-}
-
-/* Label au-dessus et à gauche, occupant toute la largeur disponible */
-.label-above {
-	display: block;
+/* ✅ S'assurer que le footer reste bien fixé en bas */
+body.login-page footer {
 	width: 100%;
-	text-align: left;
-	margin-bottom: 7px;
-	font-size: 14px;
-	font-weight: normal;
-}
-
-*/
-
-/* Pour espacer le label "Mot de passe" de 52px par rapport à l'élément précédent */
-#password-label {
-	margin-top: 52px;
-}
-
-/* Conteneur pour chaque input : 379×51px, fond blanc + ombre */
-.input-container {
-	width: 379px;
-	height: 51px;
-	background-color: #ffffff;
-	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-	border-radius: 5px;
+	height: 60px;
+	background: rgba(255, 255, 255, 1);
 	display: flex;
 	align-items: center;
-	padding: 0 10px;
-
-	/* Espace entre chaque conteneur */
-	margin-bottom: 20px;
-}
-
-/* Style des inputs à l’intérieur des conteneurs */
-.input-container input {
-	border: none;
-	outline: none;
+	justify-content: flex-end;
+	padding-right: 107px;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 300;
 	font-size: 14px;
-	width: 100%;
-}
-
-/* Bouton de connexion, 37px de marge au-dessus pour l’espacement demandé */
-#login button[type="submit"] {
-	margin-top: 37px;
-	font-family: 'Syne', sans-serif;
-	font-weight: 700;
-	font-size: 1.2em;
-	height: 50px;
-	width: 179px;
-	border-radius: 36px;
-	background-color: #1D6154;
-	color: white;
-	border: none;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-#login button[type="submit"]:hover {
-	background-color: #B1663C;
+	position: absolute;
+	/* Fixe le footer en bas */
+	bottom: 0;
+	/* Le colle en bas */
+	left: 0;
 }
