@@ -1,5 +1,22 @@
 // modal.js
 document.addEventListener("DOMContentLoaded", function () {
+    const btnModifier = document.getElementById("modifier-button");
+
+    if (!btnModifier) {
+        console.error("❌ Erreur : L'élément #modifier-button est introuvable dans le DOM !");
+        return;
+    }
+
+    console.log("✅ Bouton Modifier trouvé :", btnModifier);
+
+    btnModifier.addEventListener("click", function () {
+        console.log("🔹 Clic détecté sur 'modifier-button' !");
+        const modal = document.getElementById("modal1");
+        modal.style.display = "block";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("modal1"); // Sélectionne la modale
     const openModalBtn = document.getElementById("modifier-button"); // Bouton Modifier
     const closeModalBtn = document.querySelector(".modal-close"); // Bouton de fermeture
@@ -79,3 +96,8 @@ if (modal) { // AJOUTE CE IF - VÉRIFIER SI modal EXISTE AVANT D'AJOUTER L'ÉCOU
 } else {
     console.error("Erreur : modal est null ! Vérifiez l'ID dans index.html"); // AJOUTE CE CONSOLE.ERROR - SI modal EST NULL
 }
+
+btnModifier.addEventListener("click", function () {
+    console.log("🔹 Clic détecté sur 'modifier-button' !");
+    modal.style.display = "block";
+});
