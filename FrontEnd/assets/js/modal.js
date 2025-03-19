@@ -1,41 +1,56 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("modal.js chargé !");
 
-    // Récupérer les éléments
-    const modal = document.getElementById("modal1"); // Sélectionne la modale
-    const btnModifier = document.getElementById("modifier-button"); // Bouton Modifier
-    const btnCloseModal = document.querySelector(".modal-close"); // Bouton de fermeture
+    // --- Récupération des éléments HTML ---
+    const modal = document.getElementById("modal1");
+    const btnModifier = document.getElementById("modifier-button");
+    const btnCloseModal = document.querySelector("#modal-close");
+    const modalWrapper = document.querySelector('.modal-wrapper');
 
-    // Vérification des éléments
-    if (!modal) {
-        console.error("❌ Erreur : L'élément #modal1 est introuvable dans le DOM !");
-        return;
-    }
-    if (!btnModifier) {
-        console.error("❌ Erreur : L'élément #modifier-button est introuvable dans le DOM !");
-        return;
-    }
-    if (!btnCloseModal) {
-        console.warn("⚠️ Attention : L'élément .modal-close est introuvable dans le DOM !");
-    }
+    // --- Vérification de la présence des éléments ---
+    if (!modal) { console.error("❌ Erreur : #modal1 introuvable !"); return; }
+    if (!btnModifier) { console.error("❌ Erreur : #modifier-button introuvable !"); return; }
+    if (!btnCloseModal) { console.warn("⚠️ Attention : #modal-close introuvable !"); }
+    if (!modalWrapper) { console.error("❌ Erreur : .modal-wrapper introuvable !"); return; }
 
-    console.log("✅ Tous les éléments nécessaires sont trouvés.");
+    console.log("✅ Éléments nécessaires trouvés.");
 
-    // Assurer que la modale est bien cachée au chargement
+    // --- Modale cachée au démarrage ---
     modal.style.display = "none";
 
-    // 🔹 Afficher la modale au clic sur "modifier"
+    // --- Ouvrir la modale au clic sur "modifier" ---
     btnModifier.addEventListener("click", function (event) {
-        event.preventDefault();
-        modal.style.display = "block";
+        event.preventDefault(); // Empêche le comportement par défaut du lien
+        modal.style.display = "block"; // Affiche la modale
         console.log("✅ Modale ouverte !");
     });
 
-    // 🔹 Fermer la modale au clic sur la croix
+    // --- Fermer la modale au clic sur la croix ---
     if (btnCloseModal) {
-        btnCloseModal.addEventListener("click", function () {
-            modal.style.display = "none";
+        btnCloseModal.addEventListener("click", function (event) {
+            event.preventDefault(); // Empêche le comportement par défaut du lien
+            modal.style.display = "none"; // Cache la modale
             console.log("✅ Modale fermée (croix) !");
         });
     }
+
+    // --- Fermer la modale en cliquant EN DEHORS (sur l'overlay) ---
+    modal.addEventListener('click', function (event) {
+        console.log("Clic détecté sur overlay"); // Log pour test
+        console.log("event.target:", event.target); // Log pour test
+        console.log("modal:", modal); // Log pour test
+
+        if (event.target === modal) { // Si l'élément cliqué est L'OVERLAY LUI-MÊME
+            modal.style.display = "none"; // Cache la modale
+            console.log("✅ Modale fermée (clic dehors) !");
+        } else {
+            console.log("❌ Clic PAS sur overlay"); // Log pour test
+        }
+    });
+
+    // --- Empêcher la fermeture en cliquant DANS la modale ---
+    modalWrapper.addEventListener('click', function (event) {
+        event.stopPropagation(); // Empêche le clic de se propager à l'overlay et de fermer la modale
+    });
+
 });

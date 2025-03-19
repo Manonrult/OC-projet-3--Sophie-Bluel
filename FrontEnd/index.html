@@ -9,7 +9,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 
@@ -48,34 +48,59 @@
 
 		</section>
 		<section id="portfolio">
-			<h2>Mes projets <a href="#" id="modifier-button">
-					<i class="fa-regular fa-pen-to-square"></i> modifier
-				</a></h2>
-			<div id="modal1" class="modal">
-				<div class="modal-overlay"></div> <!-- Fond noir semi-transparent -->
-				<div class="modal-wrapper">
-					<div class="modal-content">
-						<button class="modal-close">X</button> <!-- Bouton pour fermer la modale (croix) -->
-						<div class="modal-body">
-							<!-- Contenu de la modale (vue "Galerie photo" par défaut) -->
-							<div class="modal-view" id="modal-view-galerie-photo">
-								<h3>Galerie photo (Vue 1 - Par défaut)</h3>
-								<p>Contenu de la galerie photo (liste des projets viendra ici)</p>
-								<button id="btn-ajouter-photo">Ajouter une photo</button>
-								<!-- Bouton pour passer à la vue "Ajout photo" -->
-							</div>
+			<h2>Mes projets
+				<a href="#" id="modifier-button">
+					<i class="fa-regular fa-pen-to-square" id="modifier-icon"></i>
+					<span id="modifier-text">modifier</span>
+				</a>
+			</h2>
 
-							<!-- Vue "Ajout photo" (initialement cachée) -->
-							<div class="modal-view" id="modal-view-ajout-photo">
-								<h3>Ajout photo (Vue 2 - Cachée au départ)</h3>
-								<p>Formulaire d'ajout de photo viendra ici</p>
-								<button id="btn-retour-galerie">Retour à la galerie photo</button>
-								<!-- Bouton pour revenir à la vue "Galerie photo" -->
-							</div>
+			<!-- ✅ MODALE -->
+			<div id="modal1" class="modal">
+				<div class="modal-wrapper">
+					<!-- 🔙 Bouton retour -->
+					<a href="#" id="modal-back" class="modal-icon" title="Retour">
+						<i class="fa-solid fa-arrow-left"></i>
+					</a>
+
+					<!-- ❌ Bouton fermeture -->
+					<a href="#" id="modal-close" class="modal-icon" title="Fermer la modale">
+						<i class="fa-solid fa-xmark"></i>
+					</a>
+
+					<!-- 🏗️ Contenu de la modale -->
+					<div class="modal-content">
+						<h3>Ajout photo</h3>
+
+						<!-- 📷 Ajout de photo -->
+						<div class="modal-photo-upload">
+							<i class="fa-regular fa-image"></i>
+							<a href="#" id="btn-ajouter-photo">+ Ajouter photo</a>
+							<p>jpg, png : 4mo max</p>
 						</div>
+
+						<!-- 📝 Formulaire -->
+						<form id="photo-form">
+							<label for="photo-title">Titre</label>
+							<input type="text" id="photo-title" name="photo-title" required>
+
+							<label for="photo-category">Catégorie</label>
+							<select id="photo-category" name="photo-category" required>
+								<option value="">Sélectionner une catégorie</option>
+								<option value="1">Objets</option>
+								<option value="2">Appartements</option>
+								<option value="3">Hotels & Restaurants</option>
+							</select>
+							<div id="photo-form-separator"></div>
+							<!-- 🔘 Bouton Valider -->
+							<button id="photo-validate" disabled>Valider</button>
+						</form>
 					</div>
 				</div>
 			</div>
+
+
+
 
 			<div class="filters">
 

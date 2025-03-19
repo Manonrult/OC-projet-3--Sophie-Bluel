@@ -123,7 +123,7 @@ a {
 	/* Garde la couleur du texte normal */
 	text-decoration: none;
 	/* Enlève le soulignement */
-	
+
 	text-decoration: none;
 }
 
@@ -472,73 +472,237 @@ body.login-page footer {
 	left: 0;
 }
 
+/* modifier  */
+
+#portfolio h2 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* ✅ Centre le titre */
+	position: relative;
+	width: 100%;
+	text-align: center;
+	gap: 31px;
+	
+}
+
+
+#modifier-button {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 14px;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 1);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* ✅ Style de l’icône */
+#modifier-icon {
+	font-size: 15.58px;
+	font-weight: bold;
+	/* ✅ Icône en gras */
+	color: rgb(0, 0, 0);
+}
+
+
+/* ✅ Structure de la modale */
+/* ✅ Structure de la modale */
 .modal {
+	width: 630px;
+	height: 670px;
+	background: rgba(255, 255, 255, 1);
+	border-radius: 10px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 500px;
-	background: white;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-	padding: 20px;
 	display: none;
-	/* Caché par défaut */
 	z-index: 1000;
+	padding: 20px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
 }
 
-/* ✅ Contenu de la modale */
-.modal-content {
+/* ✅ Style du conteneur photo upload */
+.modal-photo-upload {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	text-align: center;
+	justify-content: flex-start;
+	width: 420px;
+	/* Largeur unifiée avec les champs de formulaire */
+	height: 169px;
+	background: rgba(232, 241, 246, 1);
+	border-radius: 3px;
+	margin-left: auto;
+	/* Centrage horizontal amélioré */
+	margin-right: auto;
+	/* Centrage horizontal amélioré */
+	margin-top: 26px;
+	margin-bottom: 36px;
 }
 
-/* ✅ Bouton de fermeture */
-.modal-close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: none;
-	border: none;
-	font-size: 20px;
+/* ✅ Icône image dans upload */
+.modal-photo-upload i {
+	font-size: 76px;
+	color: rgba(100, 100, 100, 0.6);
+	margin-top: 13px;
+}
+
+/* ✅ Lien "Ajouter une photo" */
+.modal-photo-upload a#btn-ajouter-photo {
+	/* Correcteur de sélecteur et plus précis */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 150px;
+	height: 36px;
+	border-radius: 18px;
+	background: rgba(200, 210, 220, 1);
+	font-size: 14px;
+	font-weight: 500;
+	color: black;
+	text-decoration: none;
 	cursor: pointer;
+	margin-top: 13px;
+}
+
+/* ✅ Texte jpg/png sous upload */
+.modal-photo-upload p {
+	font-size: 12px;
+	color: rgba(100, 100, 100, 0.8);
+	margin-top: 5px;
+	text-align: center;
+	/* Centrage du texte */
+}
+
+
+/* ✅ Icônes de la modale (flèche et croix) */
+.modal-icon {
+	position: absolute;
+	font-size: 21px;
+	color: black;
+	text-decoration: none;
+}
+
+/* 🔹 Flèche de retour */
+#modal-back {
+	top: 26px;
+	left: 30px;
+}
+
+/* 🔹 Croix de fermeture */
+#modal-close {
+	top: 26px;
+	right: 30px;
 }
 
 /* ✅ Titre de la modale */
 .modal h3 {
-	font-size: 20px;
-	font-weight: bold;
-	margin-bottom: 15px;
+	font-size: 26px;
+	font-weight: 400;
+	margin-top: 60px;
+	text-align: center;
+	margin-bottom: 56px;
 }
 
-/* ✅ Champs de formulaire dans la modale */
-.modal input,
-.modal select {
-	width: 100%;
-	height: 40px;
-	margin-bottom: 15px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 5px;
+/* ✅ Formulaire */
+#photo-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* Centrage des éléments du formulaire */
+	width: 420px;
+	/* Largeur du formulaire alignée sur les champs */
+	margin-left: auto;
+	/* Centrage horizontal du formulaire dans la modal */
+	margin-right: auto;
+	/* Centrage horizontal du formulaire dans la modal */
+	margin-top: 0;
+	/* MODIFIÉ : Mettre la marge supérieure à 0 */
 }
 
-/* ✅ Bouton de validation */
-.modal button {
+/* ✅ Labels du formulaire */
+#photo-form label {
+	font-size: 14px;
+	font-weight: 500;
+	text-align: left;
 	width: 100%;
-	height: 40px;
-	background-color: #1D6154;
-	color: white;
-	font-size: 16px;
-	font-weight: bold;
+	/* Labels prennent toute la largeur du formulaire */
+	margin-bottom: 10px;
+}
+
+/* ✅ Champs de formulaire (input et select) */
+#photo-form input,
+#photo-form select,
+#photo-title,
+/* Ajout des ID spécifiques pour cohérence */
+#photo-category {
+	width: 100%;
+	/* Champs prennent toute la largeur du formulaire parent */
+	height: 51px;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
 	border-radius: 5px;
+	padding: 10px;
+	font-size: 14px;
+	font-family: "Work Sans", sans-serif;
+	/* Ajout de la font-family ici pour uniformité */
+	margin-bottom: 15px;
+	box-sizing: border-box;
+	/* Important : Inclut padding et border dans la width/height */
+}
+
+#photo-category {
+	background-position: right 15px center;
+	background-image: url("data:image/svg+xml,%3Csvg width='12' height='7' viewBox='0 0 12 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 5.5L11 1.5' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+
+}
+
+/* ✅ Ligne de séparation avant le bouton Valider */
+#photo-form-separator {
+	width: 100%;
+	/* Prend toute la largeur du formulaire */
+	height: 0;
+	/* Hauteur à 0, la ligne est créée par la bordure */
+	border-top: 1px solid rgba(179, 179, 179, 1);
+	/* Style de la ligne */
+	margin-top: 47px;
+	margin-bottom: 32px;
+}
+
+/* ✅ Bouton "Valider" du formulaire */
+#photo-form button#photo-validate {
+	/* Sélecteur plus spécifique et correctif */
+	width: 80%;
+	/* Bouton prend toute la largeur du formulaire */
+	height: 51px;
+	/* Hauteur unifiée avec les champs de formulaire */
+	font-size: 16px;
+	font-weight: bold;
 	cursor: pointer;
+	background-color: gray;
+	color: white;
+	border: none;
+	border-radius: 25px;
+	text-align: center;
+	transition: background-color 0.3s ease;
+}
+
+/* 🔹 Hover bouton "Valider" */
+#photo-form button#photo-validate:hover {
+	/* Sélecteur plus spécifique */
+	background-color: darkgray;
 }
 
 /* ✅ Bouton désactivé */
-.modal button:disabled {
-	background-color: gray;
+#photo-form button#photo-validate:disabled {
+	/* Sélecteur plus spécifique */
+	background-color: lightgray;
+	/* Gris plus clair pour désactivé */
+	color: #777;
+	/* Texte plus clair pour désactivé */
 	cursor: not-allowed;
 }
