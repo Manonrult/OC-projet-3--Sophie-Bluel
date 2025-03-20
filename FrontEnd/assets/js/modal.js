@@ -14,20 +14,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     const btnBack = document.getElementById("modal-back");
     const galleryGrid = document.querySelector(".gallery-grid");
 
-    // Éléments pour l'ajout d'une photo
-    const fileInput = document.getElementById("file-input"); // input type="file"
-    const btnAjouterPhoto = document.getElementById("btn-ajouter-photo"); // lien "+ Ajouter photo"
+    // Éléments pour l'ajout de photo
+    const fileInput = document.getElementById("file-input");         // <input type="file">
+    const btnAjouterPhoto = document.getElementById("btn-ajouter-photo"); // Lien "+ Ajouter photo"
     const previewContainer = document.querySelector(".modal-photo-upload");
     const photoTitle = document.getElementById("photo-title");
     const photoCategory = document.getElementById("photo-category");
     const btnValidate = document.getElementById("photo-validate");
-    const formPhoto = document.getElementById("photo-form");
+    const formPhoto = document.getElementById("photo-form");         // <form id="photo-form">
 
-    // Vérification de la présence des éléments
-    if (!modal || !btnModifier || !btnCloseModal || !modalWrapper || !modalGallery ||
-        !modalUpload || !btnOpenUpload || !btnBack || !galleryGrid || !fileInput ||
-        !btnAjouterPhoto || !previewContainer || !photoTitle || !photoCategory ||
-        !btnValidate || !formPhoto) {
+    // Vérification
+    if (!modal || !btnModifier || !btnCloseModal || !modalWrapper ||
+        !modalGallery || !modalUpload || !btnOpenUpload || !btnBack ||
+        !galleryGrid || !fileInput || !btnAjouterPhoto || !previewContainer ||
+        !photoTitle || !photoCategory || !btnValidate || !formPhoto) {
         console.error("❌ Erreur : Un ou plusieurs éléments sont introuvables !");
         return;
     }
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         loadGalleryImages(); // Charger les images à chaque ouverture
     });
 
-    // Fermer la modale via la croix
+    // Fermer la modale au clic sur la croix
     btnCloseModal.addEventListener("click", function (event) {
         event.preventDefault();
         modal.style.display = "none";
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     modal.addEventListener("click", function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
-            console.log("✅ Modale fermée (clic extérieur) !");
+            console.log("✅ Modale fermée (clic dehors) !");
         }
     });
 
@@ -87,11 +87,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     // =========================
-    // 3️⃣ Chargement des images existantes (GET)
+    // 3️⃣ Chargement des images (GET)
     // =========================
     async function loadGalleryImages() {
         console.log("🔄 Chargement des images...");
-        galleryGrid.innerHTML = ""; // Réinitialisation avant chargement
+        galleryGrid.innerHTML = ""; // Réinitialisation avant le chargement
 
         try {
             const response = await fetch("http://localhost:5678/api/works");
@@ -101,7 +101,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             images.forEach(image => {
                 const projectDiv = document.createElement("div");
                 projectDiv.classList.add("modal-project");
-                projectDiv.setAttribute("data-id", image.id);
 
                 const img = document.createElement("img");
                 img.src = image.imageUrl;
@@ -110,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 const deleteBtn = document.createElement("button");
                 deleteBtn.classList.add("btn-delete");
-                // Utilisation de l'icône FontAwesome pour la corbeille
+                // Icône FontAwesome
                 deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
                 deleteBtn.addEventListener("click", () => deleteImage(image.id, projectDiv));
 
@@ -146,37 +145,36 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!response.ok) throw new Error("Erreur lors de la suppression.");
 
             console.log(`✅ Image ID ${imageId} supprimée avec succès !`);
-            // Mise à jour du DOM sans recharger la page
-            projectDiv.remove();
+            projectDiv.remove(); // Supprime l'élément du DOM
         } catch (error) {
             console.error("❌ Erreur :", error);
         }
     }
 
     // =========================
-    // 5️⃣ Gestion de l'ajout d'une image (aperçu, validation, et POST)
+    // 5️⃣ Aperçu de l'image dans la vue "Ajout Photo"
     // =========================
-
-    // Ouvrir la boîte de dialogue de sélection de fichier
     btnAjouterPhoto.addEventListener("click", function (event) {
         event.preventDefault();
-        fileInput.click();
+        fileInput.click(); // Ouvre la boîte de sélection de fichiers
     });
 
-    // Gestion de l'aperçu de l'image sélectionnée
     fileInput.addEventListener("change", function () {
         const file = fileInput.files[0];
         if (file) {
-            console.log("📸 Image sélectionnée :", file.name);
+            console.log(" Image sélectionnée :", file.name);
 
+            // Vérifier le type de fichier
             if (!file.type.startsWith("image/")) {
-                console.error("❌ Fichier non valide !");
+                console.error(" Fichier non valide !");
                 return;
             }
 
+            // Créer l'aperçu
             const reader = new FileReader();
             reader.onload = function (event) {
-                previewContainer.innerHTML = ""; // Vider l'ancien contenu
+                // Vider l'ancien contenu
+                previewContainer.innerHTML = "";
                 const imgPreview = document.createElement("img");
                 imgPreview.src = event.target.result;
                 imgPreview.style.width = "129px";
@@ -185,33 +183,36 @@ document.addEventListener("DOMContentLoaded", async function () {
                 imgPreview.style.borderRadius = "5px";
 
                 previewContainer.appendChild(imgPreview);
-                console.log("✅ Aperçu mis à jour !");
+                console.log(" Aperçu mis à jour !");
             };
 
             reader.readAsDataURL(file);
         }
-        checkForm();
+        checkForm(); // Vérifie si tout est rempli
     });
 
-    // Activation/désactivation du bouton "Valider" selon le remplissage du formulaire
+    // =========================
+    // 6️⃣ Activation du bouton "Valider" selon les champs
+    // =========================
     function checkForm() {
         console.log("🧐 Vérification du formulaire...");
         if (photoTitle.value.trim() !== "" && photoCategory.value !== "" && fileInput.files.length > 0) {
             btnValidate.removeAttribute("disabled");
-            btnValidate.style.background = "rgba(29, 97, 84, 1)"; // Couleur active
+            btnValidate.style.background = "rgba(29, 97, 84, 1)";
             console.log("✅ Formulaire complet, bouton activé !");
         } else {
             btnValidate.setAttribute("disabled", "true");
-            btnValidate.style.background = "gray"; // Couleur désactivée
-            console.log("❌ Formulaire incomplet, bouton désactivé !");
+            btnValidate.style.background = "gray";
+            console.log(" Formulaire incomplet, bouton désactivé !");
         }
     }
+
     photoTitle.addEventListener("input", checkForm);
     photoCategory.addEventListener("change", checkForm);
     fileInput.addEventListener("change", checkForm);
 
     // =========================
-    // 6️⃣ Envoi du formulaire pour ajouter un projet (POST)
+    // 7️⃣ Envoi du formulaire (POST)
     // =========================
     formPhoto.addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -219,11 +220,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const token = localStorage.getItem("token");
         if (!token) {
-            console.error("❌ Erreur : Aucun token trouvé, vous devez être connecté !");
+            console.error(" Erreur : Aucun token trouvé, vous devez être connecté !");
             return;
         }
+
         if (fileInput.files.length === 0 || photoTitle.value.trim() === "" || photoCategory.value === "") {
-            console.error("❌ Formulaire incomplet, impossible d'envoyer.");
+            console.error(" Formulaire incomplet, impossible d'envoyer.");
             return;
         }
 
@@ -239,16 +241,18 @@ document.addEventListener("DOMContentLoaded", async function () {
                 headers: { "Authorization": `Bearer ${token}` },
                 body: formData
             });
+
             if (!response.ok) {
                 throw new Error(`Erreur lors de l'ajout du projet : ${response.status}`);
             }
+
             const newWork = await response.json();
             console.log("✅ Projet ajouté avec succès :", newWork);
 
             // Ajouter immédiatement la nouvelle image dans la galerie
             addImageToGallery(newWork);
 
-            // Réinitialiser le formulaire et revenir à la galerie
+            // Revenir à la galerie + réinitialiser le formulaire
             modalUpload.classList.add("hidden");
             modalGallery.classList.remove("hidden");
             btnBack.classList.add("hidden");
@@ -264,14 +268,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     // =========================
-    // 7️⃣ Fonction pour ajouter la nouvelle image dans la galerie
+    // 8️⃣ Fonction pour ajouter la nouvelle image dans la galerie
     // =========================
     function addImageToGallery(work) {
         console.log("🖼 Ajout dans la galerie :", work.title);
 
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("modal-project");
-        projectDiv.setAttribute("data-id", work.id);
 
         const img = document.createElement("img");
         img.src = work.imageUrl;

@@ -54,8 +54,14 @@
 					<span id="modifier-text">modifier</span>
 				</a>
 			</h2>
+			<div class="filters">
 
-			
+			</div>
+			<div class="gallery">
+
+			</div>
+
+
 			<!-- ✅ MODALE -->
 			<div id="modal1" class="modal">
 				<div class="modal-wrapper">
@@ -63,15 +69,15 @@
 					<a href="#" id="modal-back" class="modal-icon hidden" title="Retour">
 						<i class="fa-solid fa-arrow-left"></i>
 					</a>
-			
+
 					<!-- ❌ Bouton fermeture -->
 					<a href="#" id="modal-close" class="modal-icon" title="Fermer la modale">
 						<i class="fa-solid fa-xmark"></i>
 					</a>
-			
+
 					<!-- 🏗️ Contenu de la modale -->
 					<div class="modal-content">
-			
+
 						<!-- ✅ VUE 1 : Galerie Photo -->
 						<div id="modal-gallery" class="modal-view">
 							<h3>Galerie Photo</h3>
@@ -79,14 +85,14 @@
 								<!-- Les images s'afficheront ici dynamiquement -->
 							</div>
 
-						<div id="photo-ajout-separator"></div>
+							<div id="photo-ajout-separator"></div>
 							<button id="btn-open-upload">+ Ajouter une photo</button>
 						</div>
-						
+
 						<!-- ✅ VUE 2 : Ajout Photo (cachée par défaut) -->
 						<div id="modal-upload" class="modal-view hidden">
 							<h3>Ajout photo</h3>
-						
+
 							<!-- ✅ Conteneur pour afficher l'aperçu de l'image -->
 							<div class="modal-photo-upload">
 								<i class="fa-regular fa-image"></i>
@@ -94,12 +100,12 @@
 								<a href="#" id="btn-ajouter-photo">+ Ajouter photo</a>
 								<p>jpg, png : 4mo max</p>
 							</div>
-						
+
 							<!-- ✅ Formulaire d'ajout d'image -->
 							<form id="photo-form">
 								<label for="photo-title">Titre</label>
 								<input type="text" id="photo-title" name="photo-title" required>
-						
+
 								<label for="photo-category">Catégorie</label>
 								<select id="photo-category" name="photo-category" required>
 									<option value="">Sélectionner une catégorie</option>
@@ -107,26 +113,15 @@
 									<option value="2">Appartements</option>
 									<option value="3">Hotels & Restaurants</option>
 								</select>
-						
+
 								<div id="photo-form-separator"></div>
 								<button id="photo-validate" disabled>Valider</button>
 							</form>
 						</div>
 
-			
+
 					</div>
 				</div>
-			</div>
-
-
-
-
-
-			<div class="filters">
-
-			</div>
-			<div class="gallery">
-
 			</div>
 		</section>
 		<section id="contact">
