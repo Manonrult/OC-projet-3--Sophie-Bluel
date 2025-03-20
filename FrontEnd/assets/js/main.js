@@ -114,3 +114,99 @@ function afficherGalerie(works) {
     });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("photo-form");
+    const inputFile = document.getElementById("btn-ajouter-photo");
+    const inputTitle = document.getElementById("photo-title");
+    const inputCategory = document.getElementById("photo-category");
+    const btnValidate = document.getElementById("photo-validate");
+
+    // Vérifie si tous les éléments sont bien présents
+    if (!form || !inputFile || !inputTitle || !inputCategory || !btnValidate) {
+        console.error("❌ Erreur : Un ou plusieurs éléments du formulaire sont introuvables !");
+        return;
+    }
+
+    // Désactiver le bouton "Valider" tant que le formulaire n'est pas rempli
+    form.addEventListener("input", function () {
+        if (inputFile.files.length > 0 && inputTitle.value.trim() !== "" && inputCategory.value !== "") {
+            btnValidate.removeAttribute("disabled");
+        } else {
+            btnValidate.setAttribute("disabled", true);
+        }
+    });
+
+    // Gestion de la soumission du formulaire
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        // Vérification du fichier sélectionné
+        if (inputFile.files.length === 0) {
+            console.error("❌ Erreur : Aucun fichier sélectionné.");
+            return;
+        }
+
+        // Création de l'objet FormData pour l'envoi du fichier et des informations
+        const formData = new FormData();
+        formData.append("image", inputFile.files[0]);
+        formData.append("title", inputTitle.value.trim());
+        formData.append("category", inputCategory.value);
+
+        console.log("📤 Envoi des données :", formData);
+
+        // Récupération du token pour l'authentification
+        const token = localStorage.getItem("token");
+        if (!token) {
+            console.error("❌ Erreur : Token introuvable, connexion requise !");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:5678/api/works", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (!response.ok) throw new Error(`Erreur ${response.status}`);
+
+            const newImage = await response.json();
+            console.log("✅ Image ajoutée avec succès :", newImage);
+
+            // Afficher immédiatement l'image ajoutée dans la galerie sans recharger la page
+            addImageToGallery(newImage);
+
+        } catch (error) {
+            console.error("❌ Erreur lors de l'ajout de l'image :", error);
+        }
+    });
+
+    // Fonction pour afficher l'image dans la galerie après l'ajout
+    function addImageToGallery(image) {
+        const galleryGrid = document.querySelector(".gallery-grid");
+        if (!galleryGrid) {
+            console.error("❌ Erreur : La galerie n'a pas été trouvée.");
+            return;
+        }
+
+        const projectDiv = document.createElement("div");
+        projectDiv.classList.add("modal-project");
+
+        const img = document.createElement("img");
+        img.src = image.imageUrl;
+        img.alt = image.title;
+        img.classList.add("modal-project-image");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("btn-delete");
+        deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+
+        projectDiv.appendChild(img);
+        projectDiv.appendChild(deleteBtn);
+        galleryGrid.appendChild(projectDiv);
+
+        console.log("📸 Nouvelle image ajoutée dans la galerie !");
+    }
+});

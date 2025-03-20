@@ -60,3 +60,84 @@ if (!document.querySelector(".form-login")) {
         });
     });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("✅ Script `modal.js` chargé !");
+
+    // Sélectionne tous les boutons de suppression
+    const deleteButtons = document.querySelectorAll(".btn-delete");
+
+    if (deleteButtons.length === 0) {
+        console.warn("⚠️ Aucun bouton de suppression trouvé. Vérifie ton HTML !");
+        return;
+    }
+
+    console.log(`🟢 ${deleteButtons.length} bouton(s) de suppression détecté(s).`);
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", async (event) => {
+            event.preventDefault();
+
+            // Récupération du token
+            const token = localStorage.getItem("token");
+            if (!token) {
+                console.error("❌ Aucun token trouvé. L'utilisateur doit être connecté !");
+                alert("Vous devez être connecté pour supprimer un projet.");
+                return;
+            }
+            console.log("🔑 Token récupéré avec succès.");
+
+            // Récupération de l'ID du projet à supprimer
+            const projectId = button.dataset.id; // Ex: data-id="1"
+            if (!projectId) {
+                console.error("❌ Impossible de récupérer l'ID du projet.");
+                return;
+            }
+
+            console.log(`🗑️ Suppression demandée pour le projet ID: ${projectId}`);
+
+            // Confirmation utilisateur
+            if (!confirm("Voulez-vous vraiment supprimer ce projet ?")) {
+                console.log("❌ Suppression annulée.");
+                return;
+            }
+
+            try {
+                console.log(`⏳ Envoi de la requête DELETE à l'API pour le projet ID: ${projectId}...`);
+
+                // Requête DELETE vers l'API
+                const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Accept": "*/*",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`❌ Erreur API: ${response.status}`);
+                }
+
+                console.log(`✅ Projet ID: ${projectId} supprimé avec succès !`);
+
+                // Supprimer l'élément du DOM après suppression réussie
+                supprimerProjetDuDOM(projectId);
+
+            } catch (error) {
+                console.error("❌ Erreur lors de la suppression :", error);
+            }
+        });
+    });
+});
+
+// Fonction pour supprimer le projet du DOM
+function supprimerProjetDuDOM(id) {
+    console.log(`🔍 Tentative de suppression du projet ID: ${id} dans le DOM...`);
+    const element = document.querySelector(`[data-id="${id}"]`);
+    if (element) {
+        element.remove();
+        console.log(`🗑️ Projet ID: ${id} supprimé du DOM.`);
+    } else {
+        console.warn(`⚠️ Projet ID: ${id} introuvable dans le DOM.`);
+    }
+}
