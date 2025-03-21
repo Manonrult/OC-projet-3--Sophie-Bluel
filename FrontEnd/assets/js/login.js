@@ -1,143 +1,103 @@
-if (!document.querySelector(".form-login")) {
-    console.warn("⚠️ `login.js` est exécuté, mais `.form-login` est introuvable. Vérifie si tu es bien sur `login.html`.");
-} else {
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("DOMContentLoaded : Le DOM est entièrement chargé et parsé !");
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ Script `login.js` chargé !");
 
-        // Sélection des éléments du DOM (formulaire et message d'erreur)
-        const formLogin = document.querySelector(".form-login");
-        const messageErreur = document.getElementById("message-erreur");
+    const formLogin = document.querySelector(".form-login");
+    const messageErreur = document.getElementById("message-erreur");
 
-        if (!formLogin) {
-            console.error("❌ Erreur : L'élément '.form-login' est introuvable dans le DOM !");
-            return;
-        }
-
-        console.log("✅ L'élément .form-login a été trouvé dans le DOM.");
-
-        formLogin.addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const loginData = { email, password };
-            console.log("loginData construit:", loginData);
-
-            const apiUrlLogin = "http://localhost:5678/api/users/login";
-            console.log("URL de l'API:", apiUrlLogin);
-
-            try {
-                console.log("Début du bloc try...catch");
-
-                const response = await fetch(apiUrlLogin, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(loginData)
-                });
-
-                console.log("Requête fetch envoyée, réponse reçue:", response);
-
-                if (response.ok) {
-                    console.log("Connexion réussie !");
-                    const data = await response.json();
-                    console.log("Data reçue:", data);
-                    const token = data.token;
-                    console.log("Token récupéré:", token);
-                    localStorage.setItem("token", token);
-                    console.log("Token stocké dans localStorage.");
-                    window.location.href = "index.html";
-                } else {
-                    console.error("Erreur de connexion:", response.status, response.statusText);
-                    messageErreur.textContent = "Erreur d'authentification. Veuillez vérifier vos identifiants.";
-                    messageErreur.style.display = "block";
-                }
-            } catch (error) {
-                console.error("Erreur Fetch:", error);
-                messageErreur.textContent = "Une erreur s'est produite lors de la connexion. Veuillez réessayer plus tard.";
-                messageErreur.style.display = "block";
-            }
-        });
-    });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("✅ Script `modal.js` chargé !");
-
-    // Sélectionne tous les boutons de suppression
-    const deleteButtons = document.querySelectorAll(".btn-delete");
-
-    if (deleteButtons.length === 0) {
-        console.warn("⚠️ Aucun bouton de suppression trouvé. Vérifie ton HTML !");
+    if (!formLogin) {
+        console.error("❌ Erreur : Formulaire de connexion introuvable !");
         return;
     }
 
-    console.log(`🟢 ${deleteButtons.length} bouton(s) de suppression détecté(s).`);
+    console.log("📝 Formulaire trouvé, ajout d'un écouteur d'événement...");
 
-    deleteButtons.forEach(button => {
-        button.addEventListener("click", async (event) => {
-            event.preventDefault();
+    formLogin.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-            // Récupération du token
-            const token = localStorage.getItem("token");
-            if (!token) {
-                console.error("❌ Aucun token trouvé. L'utilisateur doit être connecté !");
-                alert("Vous devez être connecté pour supprimer un projet.");
-                return;
-            }
-            console.log("🔑 Token récupéré avec succès.");
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
 
-            // Récupération de l'ID du projet à supprimer
-            const projectId = button.dataset.id; // Ex: data-id="1"
-            if (!projectId) {
-                console.error("❌ Impossible de récupérer l'ID du projet.");
-                return;
-            }
+        console.log(`📤 Tentative de connexion avec l'email : ${email}`);
 
-            console.log(`🗑️ Suppression demandée pour le projet ID: ${projectId}`);
+        const loginData = { email, password };
 
-            // Confirmation utilisateur
-            if (!confirm("Voulez-vous vraiment supprimer ce projet ?")) {
-                console.log("❌ Suppression annulée.");
+        try {
+            const response = await fetch("http://localhost:5678/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(loginData)
+            });
+
+            if (!response.ok) {
+                console.error("❌ Erreur de connexion :", response.status);
+                messageErreur.textContent = "⚠️ Identifiants incorrects !";
+                messageErreur.style.display = "block";
                 return;
             }
 
-            try {
-                console.log(`⏳ Envoi de la requête DELETE à l'API pour le projet ID: ${projectId}...`);
+            const data = await response.json();
+            console.log("✅ Connexion réussie ! Données reçues :", data);
 
-                // Requête DELETE vers l'API
-                const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Accept": "*/*",
-                        "Authorization": `Bearer ${token}`
-                    }
-                });
+            // Stocker le token
+            localStorage.setItem("token", data.token);
 
-                if (!response.ok) {
-                    throw new Error(`❌ Erreur API: ${response.status}`);
-                }
-
-                console.log(`✅ Projet ID: ${projectId} supprimé avec succès !`);
-
-                // Supprimer l'élément du DOM après suppression réussie
-                supprimerProjetDuDOM(projectId);
-
-            } catch (error) {
-                console.error("❌ Erreur lors de la suppression :", error);
+            // Vérification admin
+            if (email === "sophie.bluel@test.tld") {
+                console.log("👑 L'utilisateur est ADMIN !");
+                localStorage.setItem("isAdmin", "true");
+            } else {
+                console.log("👤 L'utilisateur est un utilisateur normal.");
+                localStorage.setItem("isAdmin", "false");
             }
-        });
+
+            // Redirection après connexion
+            window.location.href = "index.html";
+
+        } catch (error) {
+            console.error("❌ Erreur lors de la requête :", error);
+            messageErreur.textContent = "⚠️ Problème de connexion. Vérifie ton serveur !";
+            messageErreur.style.display = "block";
+        }
     });
 });
 
-// Fonction pour supprimer le projet du DOM
-function supprimerProjetDuDOM(id) {
-    console.log(`🔍 Tentative de suppression du projet ID: ${id} dans le DOM...`);
-    const element = document.querySelector(`[data-id="${id}"]`);
-    if (element) {
-        element.remove();
-        console.log(`🗑️ Projet ID: ${id} supprimé du DOM.`);
-    } else {
-        console.warn(`⚠️ Projet ID: ${id} introuvable dans le DOM.`);
+// ✅ Vérifier si l'utilisateur est connecté et admin
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+    console.log("🔍 Vérification connexion...");
+    console.log("🔑 Token présent ?", token ? "✅ Oui" : "❌ Non");
+    console.log("👑 L'utilisateur est-il admin ?", isAdmin ? "✅ Oui" : "❌ Non");
+
+    if (!token) {
+        console.warn("⚠️ Aucun utilisateur connecté.");
+        return;
     }
-}
+
+    // ✅ Bloquer l'ajout et la suppression de photos pour les non-admins
+    const btnAjouterPhoto = document.getElementById("btn-open-upload");
+    if (!isAdmin && btnAjouterPhoto) {
+        console.warn("🚫 Accès restreint : L'ajout de photos est désactivé pour les utilisateurs normaux.");
+        btnAjouterPhoto.style.display = "none";
+    }
+
+    const deleteButtons = document.querySelectorAll(".btn-delete");
+    deleteButtons.forEach(button => {
+        if (!isAdmin) {
+            button.style.display = "none";
+        }
+    });
+
+    // ✅ Cacher les filtres si admin
+    const filtersDiv = document.querySelector(".filters");
+    if (isAdmin && filtersDiv) {
+        console.log("🚫 Filtres cachés pour l'admin.");
+        filtersDiv.style.display = "none";
+    }
+
+    
+    
+
+    document.body.appendChild(logoutButton);
+});
