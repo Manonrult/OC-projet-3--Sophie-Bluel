@@ -1,4 +1,4 @@
-// modal.js
+// modal.js (COMPLET et MIS À JOUR - pour remplacer entièrement votre fichier modal.js)
 
 // ✅ NOUVELLE FONCTION : reloadMainGallery pour recharger et réafficher la galerie principale (MAINTENANT DANS main.js MAIS APPELÉE D'ICI)
 async function reloadMainGallery() {
@@ -295,7 +295,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             previewContainer.innerHTML = "";
             btnValidate.setAttribute("disabled", "true");
             btnValidate.style.background = "gray";
-            console.log("✅ Formulaire réinitialisé et modale revenue à la galerie depuis modal.js."); // ✅ LOG reset form + modal view
+
+            btnAjouterPhoto.style.display = "inline-block !important"; // ✅✅✅ AJOUTEZ !important
+            document.getElementById("preview-icon").style.display = "inline-block";
+            console.log("✅ Bouton 'Ajouter photo' et icône RÉAFFICHÉS après soumission!"); // ✅✅✅ NOUVEAU LOG AJOUTÉ ICI ! ✅✅✅
+
+
+            console.log("✅ Formulaire réinitialisé et modale revenue à la galerie depuis modal.js.");
 
         } catch (error) {
             console.error("❌ Erreur lors de la requête d'ajout d'image depuis modal.js :", error); // ✅ LOG erreur JS post

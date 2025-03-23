@@ -96,36 +96,63 @@ function filtrerGalerieParCategorie(categorieSelectionnee) {
 }
 
 
-console.log("⚡️ Début de la récupération initiale des œuvres et des catégories depuis l'API dans main.js..."); // ✅ LOG initial fetch
-fetch(apiUrlWorks)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP initiale dans main.js! statut: ${response.status}`); // ✅ LOG erreur HTTP initial
-        }
-        console.log("✅ Réponse de l'API reçue avec succès pour la récupération initiale des œuvres dans main.js."); // ✅ LOG succès fetch initial
-        return response.json();
-    })
-    .then(works => {
-        console.log('Données des œuvres récupérées de l\'API dans main.js:', works);
+document.addEventListener("DOMContentLoaded", async function () {
+    console.log("✅ DOMContentLoaded dans main.js");
 
-        // 1. Créer un Set pour stocker les noms de catégories uniques
-        const categoriesSet = new Set();
+    console.log("⚡️ Début de la récupération initiale des œuvres et des catégories depuis l'API dans main.js..."); // ✅ LOG initial fetch
+    fetch(apiUrlWorks)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP initiale dans main.js! statut: ${response.status}`); // ✅ LOG erreur HTTP initial
+            }
+            console.log("✅ Réponse de l'API reçue avec succès pour la récupération initiale des œuvres dans main.js."); // ✅ LOG succès fetch initial
+            return response.json();
+        })
+        .then(works => {
+            console.log('Données des œuvres récupérées de l\'API dans main.js:', works);
 
-        // 2. Parcourir le tableau 'works' et ajouter le nom de chaque catégorie au Set
-        works.forEach(work => {
-            categoriesSet.add(work.category.name); // ✅ On ajoute le NOM de la catégorie (work.category.name) au Set
+            // 1. Créer un Set pour stocker les noms de catégories uniques
+            const categoriesSet = new Set();
+
+            // 2. Parcourir le tableau 'works' et ajouter le nom de chaque catégorie au Set
+            works.forEach(work => {
+                categoriesSet.add(work.category.name); // ✅ On ajoute le NOM de la catégorie (work.category.name) au Set
+            });
+
+            // 3. Convertir le Set en un tableau pour pouvoir le manipuler plus facilement
+            const categoriesArray = Array.from(categoriesSet);
+
+            console.log('Liste des catégories uniques dans main.js:', categoriesArray); // Pour vérifier la liste des catégories uniques dans la console
+
+            afficherMenuCategories(categoriesArray); // ✅ Appelle la fonction pour créer le menu de catégories
+
+            console.log('Appel initial de afficherGalerie depuis main.js avec:', works); // ✅ AJOUTÉ POUR VÉRIFIER SI afficherGalerie EST BIEN APPELÉE
+            afficherGalerie(works); // ✅ Appelle la fonction pour afficher la galerie (complète pour l'instant)
+        })
+        .catch(error => {
+            console.error('❌ Erreur lors de la récupération initiale des œuvres depuis l\'API dans main.js:', error); // ✅ LOG erreur fetch initial
         });
 
-        // 3. Convertir le Set en un tableau pour pouvoir le manipuler plus facilement
-        const categoriesArray = Array.from(categoriesSet);
+    const btnModifier = document.getElementById("modifier-button"); // ✅ Assurez-vous que vous avez bien récupéré le bouton "Modifier"
 
-        console.log('Liste des catégories uniques dans main.js:', categoriesArray); // Pour vérifier la liste des catégories uniques dans la console
+    if (!btnModifier) {
+        console.error("❌ Erreur : Bouton 'Modifier' introuvable dans main.js!");
+        return;
+    }
 
-        afficherMenuCategories(categoriesArray); // ✅ Appelle la fonction pour créer le menu de catégories
+    // ✅✅✅ NOUVEAU : Vérification du token pour déterminer si c'est un admin
+    const token = localStorage.getItem("token");
 
-        console.log('Appel initial de afficherGalerie depuis main.js avec:', works); // ✅ AJOUTÉ POUR VÉRIFIER SI afficherGalerie EST BIEN APPELÉE
-        afficherGalerie(works); // ✅ Appelle la fonction pour afficher la galerie (complète pour l'instant)
-    })
-    .catch(error => {
-        console.error('❌ Erreur lors de la récupération initiale des œuvres depuis l\'API dans main.js:', error); // ✅ LOG erreur fetch initial
-    });
+    if (token) {
+        // ✅ Token trouvé : Utilisateur considéré comme ADMIN
+        console.log("🔑 Token d'admin trouvé dans main.js. Affichage de la vue ADMIN.");
+        btnModifier.style.display = "block"; // Afficher le bouton "Modifier" pour les admins (ou 'inline-block' selon votre CSS)
+    } else {
+        // ❌ Token non trouvé : Utilisateur considéré comme UTILISATEUR NORMAL
+        console.log("👤 Aucun token d'admin trouvé dans main.js. Affichage de la vue UTILISATEUR.");
+        btnModifier.style.display = "none"; // Cacher le bouton "Modifier" pour les utilisateurs normaux
+    }
+
+
+    console.log("✅ Fin du DOMContentLoaded dans main.js");
+});

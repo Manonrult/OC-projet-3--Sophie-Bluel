@@ -677,7 +677,7 @@ a#btn-ajouter-photo:hover {
 }
 
 .hidden {
-	display: none !important;
+	display: none ;
 }
 
 
