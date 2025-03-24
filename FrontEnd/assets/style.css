@@ -677,7 +677,7 @@ a#btn-ajouter-photo:hover {
 }
 
 .hidden {
-	display: none ;
+	display: none;
 }
 
 
@@ -705,7 +705,7 @@ a#btn-ajouter-photo:hover {
 	width: 76.86px;
 	height: 102.57px;
 	object-fit: cover;
-	
+
 }
 
 /* ✅ Bouton de suppression */
@@ -724,7 +724,7 @@ a#btn-ajouter-photo:hover {
 	top: 9px;
 	right: 25px;
 
-	
+
 }
 
 /* ✅ Icône de la corbeille */
@@ -775,4 +775,58 @@ a#btn-ajouter-photo:hover {
 	margin-top: 47px;
 	margin-bottom: 32px;
 	margin-left: 60px;
+}
+
+.filters {
+	display: flex !important;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 20px 0;
+	padding: 10px;
+
+}
+
+.filter-button {
+	width: auto;
+	/* s'adapte au texte */
+	height: 37px;
+	padding: 0 20px;
+	border-radius: 60px;
+	border: 1px solid rgba(29, 97, 84, 1);
+	background-color: white;
+	color: rgba(29, 97, 84, 1);
+	font-family: 'Syne', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+
+.filter-button:hover {
+	background-color: #1D6154;
+	color: white;
+}
+
+.logout-button {
+	width: 150px;
+	height: 36px;
+	border-radius: 60px;
+	border: 1px solid rgba(29, 97, 84, 1);
+	background-color: white;
+	color: rgba(29, 97, 84, 1);
+	font-family: "Syne", sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+	text-align: center;
+	transition: all 0.3s ease;
+	margin: 10px auto;
+	/* centré par défaut */
+	display: block;
+}
+
+.logout-button:hover {
+	background-color: rgba(29, 97, 84, 1);
+	color: white;
 }
