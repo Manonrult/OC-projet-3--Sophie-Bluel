@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageErreur = document.getElementById("message-erreur");
 
     if (!formLogin) {
-        console.error("❌ Erreur : Formulaire de connexion introuvable !");
+        console.error("Erreur : Formulaire de connexion introuvable !");
         return;
     }
 
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (!response.ok) {
-                messageErreur.textContent = "⚠️ Identifiants incorrects !";
+                messageErreur.textContent = "Identifiants incorrects !";
                 messageErreur.style.display = "block";
                 return;
             }
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("isAdmin", email === "sophie.bluel@test.tld" ? "true" : "false");
             window.location.href = "index.html";
         } catch (error) {
-            messageErreur.textContent = "⚠️ Problème de connexion.";
+            messageErreur.textContent = "Problème de connexion.";
             messageErreur.style.display = "block";
         }
     });
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const filtersDiv = document.querySelector(".filters");
     if (isAdmin && filtersDiv) filtersDiv.style.display = "none";
 
-    // 🔓 Bouton logout
+    // Bouton logout
     const logoutButton = document.createElement("button");
     logoutButton.id = "logout-button";
     logoutButton.textContent = "Déconnexion";

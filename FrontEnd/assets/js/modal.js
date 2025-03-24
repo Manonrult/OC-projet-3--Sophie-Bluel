@@ -1,90 +1,90 @@
 // modal.js (COMPLET et MIS À JOUR - pour remplacer entièrement votre fichier modal.js)
 
-// ✅ NOUVELLE FONCTION : reloadMainGallery pour recharger et réafficher la galerie principale (MAINTENANT DANS main.js MAIS APPELÉE D'ICI)
+// NOUVELLE FONCTION : reloadMainGallery pour recharger et réafficher la galerie principale (MAINTENANT DANS main.js MAIS APPELÉE D'ICI)
 async function reloadMainGallery() {
-    console.log("🔄 Démarrage de reloadMainGallery() dans modal.js pour recharger la galerie principale..."); // ✅ LOG
+    console.log("Démarrage de reloadMainGallery() dans modal.js pour recharger la galerie principale..."); // LOG
     try {
-        const res = await fetch(apiUrlWorks); // Récupère les œuvres depuis l'API (apiUrlWorks est définie dans main.js, il faut s'assurer que main.js est inclus AVANT modal.js dans le HTML)
+        const res = await fetch(apiUrlWorks); // Récupère les œuvres depuis l'API (apiUrlWorks est définie dans main.js)
         if (!res.ok) {
-            throw new Error(`Erreur HTTP lors du rechargement de la galerie depuis modal.js: ${res.status}`); // ✅ LOG erreur HTTP
+            throw new Error(`Erreur HTTP lors du rechargement de la galerie depuis modal.js: ${res.status}`); // LOG erreur HTTP
         }
-        const works = await res.json();
-        afficherGalerie(works); // Réaffiche la galerie principale avec les nouvelles données (afficherGalerie est définie dans main.js, doit être globale ou importée)
-        console.log("🔄 Galerie principale rechargée avec succès depuis modal.js !"); // ✅ LOG succès
+        const works = await res.json(); // Parse la réponse JSON
+        afficherGalerie(works); // Réaffiche la galerie principale avec les nouvelles données (afficherGalerie est définie dans main.js)
+        console.log("Galerie principale rechargée avec succès depuis modal.js !"); // LOG succès
     } catch (err) {
-        console.error("❌ Erreur dans reloadMainGallery() depuis modal.js :", err); // ✅ LOG erreur JS
+        console.error("Erreur dans reloadMainGallery() depuis modal.js :", err); // LOG erreur JS
     }
 }
 
 
 document.addEventListener("DOMContentLoaded", async function () {
-    console.log("✅ modal.js chargé !");
+    console.log("modal.js chargé !");
 
     // =========================
     // 1️⃣ Sélection des éléments
     // =========================
-    const modal = document.getElementById("modal1");
-    const btnModifier = document.getElementById("modifier-button");
-    const btnCloseModal = document.getElementById("modal-close");
-    const modalWrapper = document.querySelector('.modal-wrapper');
-    const modalGallery = document.getElementById("modal-gallery");
-    const modalUpload = document.getElementById("modal-upload");
-    const btnOpenUpload = document.getElementById("btn-open-upload");
-    const btnBack = document.getElementById("modal-back");
-    const galleryGrid = document.querySelector(".gallery-grid");
+    const modal = document.getElementById("modal1"); // Récupère l'élément modal
+    const btnModifier = document.getElementById("modifier-button"); // Bouton "Modifier" pour ouvrir la modale
+    const btnCloseModal = document.getElementById("modal-close"); // Bouton de fermeture de la modale (croix)
+    const modalWrapper = document.querySelector('.modal-wrapper'); // Wrapper de la modale pour empêcher la fermeture au clic interne
+    const modalGallery = document.getElementById("modal-gallery"); // Vue "Galerie" de la modale
+    const modalUpload = document.getElementById("modal-upload"); // Vue "Ajout Photo" de la modale
+    const btnOpenUpload = document.getElementById("btn-open-upload"); // Bouton "+ Ajouter une photo" pour ouvrir la vue "Ajout Photo"
+    const btnBack = document.getElementById("modal-back"); // Bouton "Retour" pour revenir à la vue "Galerie"
+    const galleryGrid = document.querySelector(".gallery-grid"); // Grille de la galerie dans la modale
 
     // Éléments pour l'ajout de photo
-    const fileInput = document.getElementById("file-input");         // <input type="file">
-    const btnAjouterPhoto = document.getElementById("btn-ajouter-photo"); // Lien "+ Ajouter photo"
-    const previewContainer = document.querySelector(".modal-photo-upload");
-    const photoTitle = document.getElementById("photo-title");
-    const photoCategory = document.getElementById("photo-category");
-    const btnValidate = document.getElementById("photo-validate");
-    const formPhoto = document.getElementById("photo-form");         // <form id="photo-form">
+    const fileInput = document.getElementById("file-input");         // <input type="file"> pour sélectionner l'image
+    const btnAjouterPhoto = document.getElementById("btn-ajouter-photo"); // Lien "+ Ajouter photo" pour déclencher fileInput
+    const previewContainer = document.querySelector(".modal-photo-upload"); // Container pour l'aperçu de l'image
+    const photoTitle = document.getElementById("photo-title"); // Input pour le titre de la photo
+    const photoCategory = document.getElementById("photo-category"); // Select pour la catégorie de la photo
+    const btnValidate = document.getElementById("photo-validate"); // Bouton "Valider" le formulaire d'ajout
+    const formPhoto = document.getElementById("photo-form");         // <form id="photo-form"> formulaire d'ajout photo
 
-    // Vérification
+    // Vérification des éléments
     if (!modal || !btnModifier || !btnCloseModal || !modalWrapper ||
         !modalGallery || !modalUpload || !btnOpenUpload || !btnBack ||
         !galleryGrid || !fileInput || !btnAjouterPhoto || !previewContainer ||
         !photoTitle || !photoCategory || !btnValidate || !formPhoto) {
-        console.error("❌ Erreur dans modal.js : Un ou plusieurs éléments sont introuvables !");
+        console.error("Erreur dans modal.js : Un ou plusieurs éléments sont introuvables !"); // LOG erreur si un élément est manquant
         return;
     }
-    console.log("✅ Tous les éléments nécessaires trouvés dans modal.js.");
+    console.log("Tous les éléments nécessaires trouvés dans modal.js."); // LOG si tous les éléments sont trouvés
 
     // =========================
     // 2️⃣ Gestion de la modale
     // =========================
 
     // Masquer la modale au démarrage
-    modal.style.display = "none";
+    modal.style.display = "none"; // Modale cachée par défaut
 
     // Ouvrir la modale au clic sur "Modifier"
     btnModifier.addEventListener("click", function (event) {
-        event.preventDefault();
-        modal.style.display = "block";
-        console.log("✅ Modale ouverte depuis modal.js !");
-        loadGalleryImages(); // Charger les images à chaque ouverture
+        event.preventDefault(); // Empêche le comportement par défaut du lien
+        modal.style.display = "block"; // Affiche la modale
+        console.log("Modale ouverte depuis modal.js !"); // LOG ouverture modale
+        loadGalleryImages(); // Charge les images de la galerie modale à l'ouverture
     });
 
     // Fermer la modale au clic sur la croix
     btnCloseModal.addEventListener("click", function (event) {
-        event.preventDefault();
-        modal.style.display = "none";
-        console.log("✅ Modale fermée (croix) depuis modal.js !");
+        event.preventDefault(); // Empêche le comportement par défaut du lien
+        modal.style.display = "none"; // Cache la modale
+        console.log("Modale fermée (croix) depuis modal.js !"); // LOG fermeture modale (croix)
     });
 
     // Fermer la modale en cliquant en dehors
     modal.addEventListener("click", function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-            console.log("✅ Modale fermée (clic dehors) depuis modal.js !");
+        if (event.target === modal) { // Vérifie si le clic est directement sur le fond de la modale
+            modal.style.display = "none"; // Cache la modale
+            console.log("Modale fermée (clic dehors) depuis modal.js !"); // LOG fermeture modale (clic dehors)
         }
     });
 
     // Empêcher la fermeture en cliquant dans la modale
     modalWrapper.addEventListener("click", function (event) {
-        event.stopPropagation();
+        event.stopPropagation(); // Empêche la propagation du clic au parent (modal)
     });
 
     // Passer à la vue "Ajout Photo"
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         modalGallery.classList.add("hidden");
         modalUpload.classList.remove("hidden");
         btnBack.classList.remove("hidden");
-        console.log("📂 Passage à la vue Ajout Photo depuis modal.js");
+        console.log("Passage à la vue Ajout Photo depuis modal.js");
     });
 
     // Revenir à la Galerie Photo
@@ -102,19 +102,19 @@ document.addEventListener("DOMContentLoaded", async function () {
         modalUpload.classList.add("hidden");
         modalGallery.classList.remove("hidden");
         btnBack.classList.add("hidden");
-        console.log("📷 Retour à la Galerie Photo depuis modal.js");
+        console.log("Retour à la Galerie Photo depuis modal.js");
     });
 
     // =========================
     // 3️⃣ Chargement des images (GET) - POUR LA MODALE UNIQUEMENT
     // =========================
     async function loadGalleryImages() {
-        console.log("🔄 Chargement des images de la modale depuis modal.js..."); // ✅ LOG
+        console.log("Chargement des images de la modale depuis modal.js..."); // LOG
         galleryGrid.innerHTML = ""; // Réinitialisation avant le chargement
 
         try {
             const response = await fetch("http://localhost:5678/api/works");
-            if (!response.ok) throw new Error("Erreur lors du chargement des images de la modale depuis modal.js."); // ✅ LOG erreur fetch modale
+            if (!response.ok) throw new Error("Erreur lors du chargement des images de la modale depuis modal.js."); // LOG erreur fetch modale
             const images = await response.json();
 
             images.forEach(image => {
@@ -137,9 +137,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                 galleryGrid.appendChild(projectDiv);
             });
 
-            console.log("✅ Images de la modale chargées avec succès depuis modal.js."); // ✅ LOG succès fetch modale
+            console.log("Images de la modale chargées avec succès depuis modal.js."); // LOG succès fetch modale
         } catch (error) {
-            console.error("❌ Erreur lors du chargement des images de la modale depuis modal.js:", error); // ✅ LOG erreur JS modale
+            console.error("Erreur lors du chargement des images de la modale depuis modal.js:", error); // LOG erreur JS modale
         }
     }
 
@@ -147,11 +147,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 4️⃣ Suppression d'une image (DELETE) - MODIFIÉ POUR APPELER reloadMainGallery()
     // =========================
     async function deleteImage(imageId, projectDiv) {
-        console.log(`🗑 Tentative de suppression de l'image ID: ${imageId} depuis modal.js`); // ✅ LOG suppression start
+        console.log(`Tentative de suppression de l'image ID: ${imageId} depuis modal.js`); // LOG suppression start
 
         const token = localStorage.getItem("token");
         if (!token) {
-            console.error("❌ Erreur dans modal.js : Token d'authentification introuvable ! Suppression impossible."); // ✅ LOG token manquant
+            console.error("Erreur dans modal.js : Token d'authentification introuvable ! Suppression impossible."); // LOG token manquant
             return;
         }
 
@@ -163,17 +163,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error(`Erreur lors de la suppression de l'image depuis modal.js. Status: ${response.status}. Détails: ${errorText}`); // ✅ LOG erreur fetch delete
+                throw new Error(`Erreur lors de la suppression de l'image depuis modal.js. Status: ${response.status}. Détails: ${errorText}`); // LOG erreur fetch delete
             }
 
-            console.log(`✅ Image ID ${imageId} supprimée avec succès du serveur (status 204) depuis modal.js.`); // ✅ LOG suppression serveur OK
+            console.log(`Image ID ${imageId} supprimée avec succès du serveur (status 204) depuis modal.js.`); // LOG suppression serveur OK
             projectDiv.remove(); // Supprime l'élément du DOM
-            console.log("✅ Image supprimée de la modale depuis modal.js."); // ✅ LOG suppression modale OK
+            console.log("Image supprimée de la modale depuis modal.js."); // LOG suppression modale OK
 
-            reloadMainGallery(); // ✅✅✅  RECHARGE LA GALERIE PRINCIPALE APRÈS SUPPRESSION ! ✅✅✅
+            reloadMainGallery(); // RECHARGE LA GALERIE PRINCIPALE APRÈS SUPPRESSION !
 
         } catch (error) {
-            console.error("❌ Erreur lors de la suppression de l'image depuis modal.js:", error); // ✅ LOG erreur JS delete
+            console.error("Erreur lors de la suppression de l'image depuis modal.js:", error); // LOG erreur JS delete
         }
     }
 
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             // Vérifier le type de fichier
             if (!file.type.startsWith("image/")) {
-                console.error("❌ Fichier non valide dans modal.js ! Seules les images sont acceptées."); // ✅ LOG fichier invalide
+                console.error("Fichier non valide dans modal.js ! Seules les images sont acceptées."); // LOG fichier invalide
                 previewContainer.innerHTML = "<p>Fichier non valide. Veuillez sélectionner une image (jpg, png).</p>"; // Message visuel dans la preview
                 return;
             }
@@ -222,16 +222,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 6️⃣ Activation du bouton "Valider" selon les champs
     // =========================
     function checkForm() {
-        console.log("🧐 Vérification du formulaire dans modal.js..."); // ✅ LOG checkForm start
+        console.log("Vérification du formulaire dans modal.js..."); // LOG checkForm start
         const isFormValid = (photoTitle.value.trim() !== "" && photoCategory.value !== "" && fileInput.files.length > 0);
         if (isFormValid) {
             btnValidate.removeAttribute("disabled");
             btnValidate.style.background = "rgba(29, 97, 84, 1)";
-            console.log("✅ Formulaire complet, bouton Valider activé dans modal.js!"); // ✅ LOG form valid
+            console.log("Formulaire complet, bouton Valider activé dans modal.js!"); // LOG form valid
         } else {
             btnValidate.setAttribute("disabled", "true");
             btnValidate.style.background = "gray";
-            console.log(" Formulaire incomplet, bouton Valider désactivé dans modal.js!"); // ✅ LOG form invalid
+            console.log("Formulaire incomplet, bouton Valider désactivé dans modal.js!"); // LOG form invalid
         }
     }
 
@@ -244,18 +244,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     // =========================
     formPhoto.addEventListener("submit", async function (e) {
         e.preventDefault();
-        console.log("🚀 Soumission du formulaire depuis modal.js..."); // ✅ LOG submit form start
+        console.log("Soumission du formulaire depuis modal.js..."); // LOG submit form start
 
         const token = localStorage.getItem("token");
         if (!token) {
-            console.error("❌ Erreur dans modal.js : Aucun token trouvé, vous devez être connecté pour ajouter une image !"); // ✅ LOG token manquant submit
+            console.error("Erreur dans modal.js : Aucun token trouvé, vous devez être connecté pour ajouter une image !"); // LOG token manquant submit
             return;
         }
 
         if (fileInput.files.length === 0 || photoTitle.value.trim() === "" || photoCategory.value === "") {
-            console.error("❌ Formulaire d'ajout d'image incomplet dans modal.js. Veuillez remplir tous les champs et sélectionner une image."); // ✅ LOG formulaire incomplet submit
-            alert("⚠️ Formulaire incomplet. Veuillez remplir tous les champs et sélectionner une image."); // ⚠️ Message ALERTE visible à l'utilisateur
-            return; // 🛑 Arrête la soumission si formulaire incomplet
+            console.error("Formulaire d'ajout d'image incomplet dans modal.js. Veuillez remplir tous les champs et sélectionner une image."); // LOG formulaire incomplet submit
+            alert("⚠️ Formulaire incomplet. Veuillez remplir tous les champs et sélectionner une image."); // Message ALERTE visible à l'utilisateur
+            return; // Arrête la soumission si formulaire incomplet
         }
 
         // Construction de FormData
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         formData.append("title", photoTitle.value.trim());
         formData.append("category", photoCategory.value);
 
-        console.log("📤 Envoi des données du formulaire à l'API depuis modal.js...", formData); // ✅ LOG formData
+        console.log("Envoi des données du formulaire à l'API depuis modal.js...", formData); // LOG formData
 
         try {
             const response = await fetch("http://localhost:5678/api/works", {
@@ -275,16 +275,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error(`Erreur lors de l'ajout du projet depuis modal.js : ${response.status}. Détails: ${errorText}`); // ✅ LOG erreur fetch post
+                throw new Error(`Erreur lors de l'ajout du projet depuis modal.js : ${response.status}. Détails: ${errorText}`); // LOG erreur fetch post
             }
 
             const newWork = await response.json();
-            console.log("✅ Projet ajouté avec succès côté serveur depuis modal.js :", newWork); // ✅ LOG succès post
+            console.log("Projet ajouté avec succès côté serveur depuis modal.js :", newWork); // LOG succès post
 
             // Ajouter immédiatement la nouvelle image dans la galerie modale
             addImageToGallery(newWork);
 
-            reloadMainGallery(); // ✅✅✅  RECHARGE LA GALERIE PRINCIPALE APRÈS AJOUT ! ✅✅✅
+            reloadMainGallery(); // RECHARGE LA GALERIE PRINCIPALE APRÈS AJOUT !
 
             // Revenir à la galerie + réinitialiser le formulaire
             modalUpload.classList.add("hidden");
@@ -296,15 +296,25 @@ document.addEventListener("DOMContentLoaded", async function () {
             btnValidate.setAttribute("disabled", "true");
             btnValidate.style.background = "gray";
 
-            btnAjouterPhoto.style.display = "inline-block !important"; // ✅✅✅ AJOUTEZ !important
+            // Réafficher le bouton "Ajouter photo" et l'icône
+            btnAjouterPhoto.classList.remove("hidden");
+            btnAjouterPhoto.style.display = "inline-block";
+
+            const previewIcon = document.getElementById("preview-icon");
+            if (previewIcon) {
+                previewIcon.style.display = "inline-block";
+            }
+
+
+            btnAjouterPhoto.style.display = "inline-block";
             document.getElementById("preview-icon").style.display = "inline-block";
-            console.log("✅ Bouton 'Ajouter photo' et icône RÉAFFICHÉS après soumission!"); // ✅✅✅ NOUVEAU LOG AJOUTÉ ICI ! ✅✅✅
+            console.log("Bouton 'Ajouter photo' et icône RÉAFFICHÉS après soumission!"); // NOUVEAU LOG AJOUTÉ ICI !
 
 
-            console.log("✅ Formulaire réinitialisé et modale revenue à la galerie depuis modal.js.");
+            console.log("Formulaire réinitialisé et modale revenue à la galerie depuis modal.js.");
 
         } catch (error) {
-            console.error("❌ Erreur lors de la requête d'ajout d'image depuis modal.js :", error); // ✅ LOG erreur JS post
+            console.error("Erreur lors de la requête d'ajout d'image depuis modal.js :", error); // LOG erreur JS post
         }
     });
 
@@ -312,7 +322,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 8️⃣ Fonction pour ajouter la nouvelle image dans la galerie modale (INCHANGÉE)
     // =========================
     function addImageToGallery(work) {
-        console.log("🖼 Ajout de l'image dans la galerie modale depuis modal.js:", work.title); // ✅ LOG addImageToModal start
+        console.log("Ajout de l'image dans la galerie modale depuis modal.js:", work.title); // LOG addImageToModal start
 
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("modal-project");
@@ -331,8 +341,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         projectDiv.appendChild(deleteBtn);
         galleryGrid.appendChild(projectDiv);
 
-        console.log("✅ Nouvelle image ajoutée visuellement à la galerie modale depuis modal.js."); // ✅ LOG addImageToModal end
+        console.log("Nouvelle image ajoutée visuellement à la galerie modale depuis modal.js."); // LOG addImageToModal end
     }
 
-    console.log("✅ Tout est prêt dans modal.js !");
+    console.log("Tout est prêt dans modal.js ! et bien separer consol log sans icone dans le code ect");
+
 });
