@@ -1,6 +1,3 @@
-// modal.js (COMPLET et MIS À JOUR - pour remplacer entièrement votre fichier modal.js)
-
-// NOUVELLE FONCTION : reloadMainGallery pour recharger et réafficher la galerie principale (MAINTENANT DANS main.js MAIS APPELÉE D'ICI)
 async function reloadMainGallery() {
     console.log("Démarrage de reloadMainGallery() dans modal.js pour recharger la galerie principale..."); // LOG
     try {
@@ -187,36 +184,28 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     fileInput.addEventListener("change", function () {
         const file = fileInput.files[0];
-        if (file) {
-            console.log(" Image sélectionnée :", file.name);
-
-            // Vérifier le type de fichier
-            if (!file.type.startsWith("image/")) {
-                console.error("Fichier non valide dans modal.js ! Seules les images sont acceptées."); // LOG fichier invalide
-                previewContainer.innerHTML = "<p>Fichier non valide. Veuillez sélectionner une image (jpg, png).</p>"; // Message visuel dans la preview
-                return;
-            }
-
-            // Créer l'aperçu
+        if (file && file.type.startsWith("image/")) {
             const reader = new FileReader();
             reader.onload = function (event) {
-                // Vider l'ancien contenu
-                previewContainer.innerHTML = "";
+                // Supprimer bouton + icône
+                document.getElementById("btn-ajouter-photo").style.display = "none";
+                document.getElementById("preview-icon").style.display = "none";
+
+                const previewZone = document.getElementById("image-preview");
+                previewZone.innerHTML = ""; // on vide le précédent preview
+
                 const imgPreview = document.createElement("img");
                 imgPreview.src = event.target.result;
-                imgPreview.style.width = "129px";
-                imgPreview.style.height = "193px";
-                imgPreview.style.objectFit = "cover";
-                imgPreview.style.borderRadius = "5px";
+                imgPreview.alt = "Aperçu";
+                imgPreview.classList.add("preview-img");
 
-                previewContainer.appendChild(imgPreview);
-                console.log(" Aperçu mis à jour dans modal.js !");
+                previewZone.appendChild(imgPreview);
             };
-
             reader.readAsDataURL(file);
         }
-        checkForm(); // Vérifie si tout est rempli
+        checkForm();
     });
+
 
     // =========================
     // 6️⃣ Activation du bouton "Valider" selon les champs
@@ -292,7 +281,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             btnBack.classList.add("hidden");
             formPhoto.reset();
             fileInput.value = "";
-            previewContainer.innerHTML = "";
+            document.getElementById("image-preview").innerHTML = "";
             btnValidate.setAttribute("disabled", "true");
             btnValidate.style.background = "gray";
 
@@ -305,18 +294,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                 previewIcon.style.display = "inline-block";
             }
 
-
-            btnAjouterPhoto.style.display = "inline-block";
-            document.getElementById("preview-icon").style.display = "inline-block";
-            console.log("Bouton 'Ajouter photo' et icône RÉAFFICHÉS après soumission!"); // NOUVEAU LOG AJOUTÉ ICI !
-
-
+            console.log("Bouton 'Ajouter photo' et icône RÉAFFICHÉS après soumission !");
             console.log("Formulaire réinitialisé et modale revenue à la galerie depuis modal.js.");
-
         } catch (error) {
-            console.error("Erreur lors de la requête d'ajout d'image depuis modal.js :", error); // LOG erreur JS post
+            console.error("Erreur lors de l'envoi du formulaire depuis modal.js :", error); // LOG erreur JS post
         }
     });
+
 
     // =========================
     // 8️⃣ Fonction pour ajouter la nouvelle image dans la galerie modale (INCHANGÉE)

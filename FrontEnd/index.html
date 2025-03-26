@@ -102,6 +102,7 @@
 								<i class="fa-regular fa-image" id="preview-icon"></i>
 								<input type="file" id="file-input" accept="image/png, image/jpeg" hidden>
 								<a href="#" id="btn-ajouter-photo">+ Ajouter photo</a>
+								<div id="image-preview"></div>
 								<p>jpg, png : 4mo max</p>
 							</div>
 
@@ -117,9 +118,12 @@
 									<option value="2">Appartements</option>
 									<option value="3">Hotels & Restaurants</option>
 								</select>
+								
+
 
 								<div id="photo-form-separator"></div>
 								<button id="photo-validate" disabled>Valider</button>
+								<p id="form-error-message" class="form-error-message"></p>
 							</form>
 						</div>
 

@@ -830,3 +830,24 @@ a#btn-ajouter-photo:hover {
 	background-color: rgba(29, 97, 84, 1);
 	color: white;
 }
+
+#image-preview {
+	margin-top: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+.preview-img {
+	width: 129px;
+	height: 163px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+/* .form-error-message {
+	display: none;
+	color: red;
+	font-size: 14px;
+	margin-top: 10px;
+	text-align: center;
+} */
