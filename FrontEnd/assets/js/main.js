@@ -22,7 +22,7 @@ function afficherGalerie(works) {
     console.log("Galerie affichée"); // Log pour confirmer l'affichage de la galerie
 }
 
-function afficherMenuCategories(categories) {
+function afficherMenuCategories() {
     // Fonction pour afficher le menu des catégories de filtre
     const filtersDiv = document.querySelector(".filters"); // Sélectionne la div des filtres
     filtersDiv.innerHTML = ''; // Vide le contenu actuel des filtres
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Gestion des catégories uniques pour le menu de filtre
             const categories = [...new Set(works.map(w => w.category.name))]; // Extrait les noms de catégories uniques des projets
-            if (!token) afficherMenuCategories(categories); // Affiche le menu des catégories seulement si l'utilisateur n'est pas admin
+            if (!token) afficherMenuCategories(); // Affiche le menu des catégories seulement si l'utilisateur n'est pas admin
         })
         .catch(err => console.error("Erreur API :", err)); // Gestion des erreurs lors de l'appel API
 });
