@@ -162,6 +162,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const errorText = await response.text();
                 throw new Error(`Erreur lors de la suppression de l'image depuis modal.js. Status: ${response.status}. Détails: ${errorText}`); // LOG erreur fetch delete
             }
+            projectDiv.remove();
+            console.log("Image supprimée");
+
+            afficherMessage("🗑️ Image supprimée avec succès !");
+            reloadMainGallery();
 
             console.log(`Image ID ${imageId} supprimée avec succès du serveur (status 204) depuis modal.js.`); // LOG suppression serveur OK
             projectDiv.remove(); // Supprime l'élément du DOM
@@ -213,6 +218,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     function checkForm() {
         console.log("Vérification du formulaire dans modal.js..."); // LOG checkForm start
         const isFormValid = (photoTitle.value.trim() !== "" && photoCategory.value !== "" && fileInput.files.length > 0);
+        btnValidate.style.color = "white"; // ✅ Texte toujours blanc
+
         if (isFormValid) {
             btnValidate.removeAttribute("disabled");
             btnValidate.style.background = "rgba(29, 97, 84, 1)";
@@ -223,6 +230,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.log("Formulaire incomplet, bouton Valider désactivé dans modal.js!"); // LOG form invalid
         }
     }
+
 
     photoTitle.addEventListener("input", checkForm);
     photoCategory.addEventListener("change", checkForm);
@@ -242,10 +250,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         if (fileInput.files.length === 0 || photoTitle.value.trim() === "" || photoCategory.value === "") {
-            console.error("Formulaire d'ajout d'image incomplet dans modal.js. Veuillez remplir tous les champs et sélectionner une image."); // LOG formulaire incomplet submit
-            alert("⚠️ Formulaire incomplet. Veuillez remplir tous les champs et sélectionner une image."); // Message ALERTE visible à l'utilisateur
-            return; // Arrête la soumission si formulaire incomplet
+            console.error("Formulaire incomplet...");
+            afficherMessage("⚠️ Tous les champs doivent être remplis pour valider.");
+            return;
         }
+
 
         // Construction de FormData
         const formData = new FormData();
@@ -264,41 +273,48 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error(`Erreur lors de l'ajout du projet depuis modal.js : ${response.status}. Détails: ${errorText}`); // LOG erreur fetch post
+                throw new Error(`Erreur lors de l'ajout du projet depuis modal.js : ${response.status}. Détails: ${errorText}`);
             }
 
             const newWork = await response.json();
-            console.log("Projet ajouté avec succès côté serveur depuis modal.js :", newWork); // LOG succès post
+            console.log("Projet ajouté avec succès côté serveur depuis modal.js :", newWork);
 
-            // Ajouter immédiatement la nouvelle image dans la galerie modale
+            // ✅ Message visuel de succès
+            afficherMessage("✅ Image ajoutée avec succès !");
+
+            // Ajout immédiat dans la galerie modale
             addImageToGallery(newWork);
 
-            reloadMainGallery(); // RECHARGE LA GALERIE PRINCIPALE APRÈS AJOUT !
+            // Recharge galerie principale
+            reloadMainGallery();
 
-            // Revenir à la galerie + réinitialiser le formulaire
+            // Reset & retour vue galerie
             modalUpload.classList.add("hidden");
             modalGallery.classList.remove("hidden");
             btnBack.classList.add("hidden");
             formPhoto.reset();
             fileInput.value = "";
             document.getElementById("image-preview").innerHTML = "";
+
+            // Reset bouton "Valider"
             btnValidate.setAttribute("disabled", "true");
             btnValidate.style.background = "gray";
+            btnValidate.style.color = "white"; // ✅ reste blanc
 
-            // Réafficher le bouton "Ajouter photo" et l'icône
+            // Réaffiche bouton "+ Ajouter photo" et icône
             btnAjouterPhoto.classList.remove("hidden");
             btnAjouterPhoto.style.display = "inline-block";
+            btnAjouterPhoto.style.background = "rgba(48, 102, 133, 1)";
+            btnAjouterPhoto.style.color = "white";
 
             const previewIcon = document.getElementById("preview-icon");
-            if (previewIcon) {
-                previewIcon.style.display = "inline-block";
-            }
+            if (previewIcon) previewIcon.style.display = "inline-block";
 
-            console.log("Bouton 'Ajouter photo' et icône RÉAFFICHÉS après soumission !");
-            console.log("Formulaire réinitialisé et modale revenue à la galerie depuis modal.js.");
+            console.log("Formulaire réinitialisé + retour galerie depuis modal.js.");
         } catch (error) {
-            console.error("Erreur lors de l'envoi du formulaire depuis modal.js :", error); // LOG erreur JS post
+            console.error("Erreur lors de l'envoi du formulaire depuis modal.js :", error);
         }
+
     });
 
 
@@ -329,5 +345,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     console.log("Tout est prêt dans modal.js ! et bien separer consol log sans icone dans le code ect");
+    // =========================
+    // 🔔 Fonction d'affichage d'un message temporaire
+    // =========================
+    function afficherMessage(message) {
+        const msgDiv = document.getElementById("modal-message");
+        if (!msgDiv) {
+            console.warn("Zone de message non trouvée !");
+            return;
+        }
+        msgDiv.textContent = message;
+        msgDiv.style.display = "block";
+
+        setTimeout(() => {
+            msgDiv.style.display = "none";
+        }, 2500);
+    }
+
+
 
 });

@@ -23,14 +23,13 @@
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li><a href="login.html">login</a></li>
+				<li><a class="nav-login" href="login.html">login</a></li>
+
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
 	</header>
-	<div class="top-bar">
-		<button id="logout-button" class="logout-button hidden">Déconnexion</button>
-	</div>
+
 
 	<main>
 
@@ -79,7 +78,7 @@
 						<i class="fa-solid fa-xmark"></i>
 					</a>
 
-					<!-- 🏗️ Contenu de la modale -->
+
 					<div class="modal-content">
 
 						<!-- ✅ VUE 1 : Galerie Photo -->
@@ -88,7 +87,7 @@
 							<div class="gallery-grid">
 								<!-- Les images s'afficheront ici dynamiquement -->
 							</div>
-
+							<div id="modal-message" class="modal-message"></div>
 							<div id="photo-ajout-separator"></div>
 							<button id="btn-open-upload">+ Ajouter une photo</button>
 						</div>
@@ -118,13 +117,14 @@
 									<option value="2">Appartements</option>
 									<option value="3">Hotels & Restaurants</option>
 								</select>
-								
-
 
 								<div id="photo-form-separator"></div>
 								<button id="photo-validate" disabled>Valider</button>
 								<p id="form-error-message" class="form-error-message"></p>
 							</form>
+
+							<!-- ✅ Message ici -->
+							<div id="modal-message" class="modal-message"></div>
 						</div>
 
 
