@@ -58,45 +58,46 @@
 				</a>
 			</h2>
 			<div class="filters">
-
+				<!-- Les boutons de filtres seront ajoutés ici par JavaScript -->
 			</div>
 			<div class="gallery">
-
+				<!-- Les images de la galerie seront ajoutées ici par JavaScript -->
 			</div>
 
-
-			<!-- ✅ MODALE -->
-			<div id="modal1" class="modal">
+			<!-- Modale -->
+			<div id="modal1" class="modal hidden">
 				<div class="modal-wrapper">
-					<!-- 🔙 Bouton retour (caché par défaut) -->
-					<a href="#" id="modal-back" class="modal-icon hidden" title="Retour">
-						<i class="fa-solid fa-arrow-left"></i>
-					</a>
+					<!-- Boutons d'icônes de la modale -->
+					<div class="modal-header-icons">
+						<!-- Bouton retour (caché par défaut) -->
+						<a href="#" id="modal-back" class="modal-icon hidden" title="Retour">
+							<i class="fa-solid fa-arrow-left"></i>
+						</a>
+						<!-- Bouton de fermeture de la modale -->
+						<a href="#" id="modal-close" class="modal-icon" title="Fermer la modale">
+							<i class="fa-solid fa-xmark"></i>
+						</a>
+					</div>
 
-					<!-- ❌ Bouton fermeture -->
-					<a href="#" id="modal-close" class="modal-icon" title="Fermer la modale">
-						<i class="fa-solid fa-xmark"></i>
-					</a>
-
-
+					<!-- Contenu principal de la modale -->
 					<div class="modal-content">
 
-						<!-- ✅ VUE 1 : Galerie Photo -->
+						<!-- VUE 1 : Galerie Photo -->
 						<div id="modal-gallery" class="modal-view">
 							<h3>Galerie Photo</h3>
 							<div class="gallery-grid">
-								<!-- Les images s'afficheront ici dynamiquement -->
+								<!-- Les images de la galerie modale s'afficheront ici dynamiquement -->
 							</div>
 							<div id="modal-message" class="modal-message"></div>
 							<div id="photo-ajout-separator"></div>
 							<button id="btn-open-upload">+ Ajouter une photo</button>
 						</div>
 
-						<!-- ✅ VUE 2 : Ajout Photo (cachée par défaut) -->
+						<!-- VUE 2 : Ajout Photo (cachée par défaut) -->
 						<div id="modal-upload" class="modal-view hidden">
 							<h3>Ajout photo</h3>
 
-							<!-- ✅ Conteneur pour afficher l'aperçu de l'image -->
+							<!-- Conteneur pour afficher l'aperçu de l'image -->
 							<div class="modal-photo-upload">
 								<i class="fa-regular fa-image" id="preview-icon"></i>
 								<input type="file" id="file-input" accept="image/png, image/jpeg" hidden>
@@ -105,7 +106,7 @@
 								<p>jpg, png : 4mo max</p>
 							</div>
 
-							<!-- ✅ Formulaire d'ajout d'image -->
+							<!-- Formulaire d'ajout d'image -->
 							<form id="photo-form">
 								<label for="photo-title">Titre</label>
 								<input type="text" id="photo-title" name="photo-title" required>
@@ -123,11 +124,9 @@
 								<p id="form-error-message" class="form-error-message"></p>
 							</form>
 
-							<!-- ✅ Message ici -->
+							<!-- Zone pour afficher les messages (succès/erreur) -->
 							<div id="modal-message" class="modal-message"></div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>

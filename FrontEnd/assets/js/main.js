@@ -1,6 +1,9 @@
 const apiUrlWorks = 'http://localhost:5678/api/works';
 
-// === AFFICHAGE GALERIE ===
+/**
+ * Fonction pour afficher la galerie d'œuvres sur la page web.
+ * Elle prend un tableau d'objets 'works' en entrée et les affiche dans la section galerie.
+ */
 function afficherGalerie(works) {
     const galleryDiv = document.querySelector(".gallery");
     galleryDiv.innerHTML = '';
@@ -18,11 +21,12 @@ function afficherGalerie(works) {
         figure.appendChild(caption);
         galleryDiv.appendChild(figure);
     });
-
-    console.log("Galerie affichée");
 }
 
-// === AFFICHAGE DES FILTRES ===
+/**
+ * Fonction pour afficher le menu des catégories de filtres.
+ * Elle crée des boutons de filtre pour chaque catégorie et les ajoute à la section des filtres.
+ */
 function afficherMenuCategories() {
     const filtersDiv = document.querySelector(".filters");
     filtersDiv.innerHTML = '';
@@ -42,11 +46,12 @@ function afficherMenuCategories() {
 
         filtersDiv.appendChild(btn);
     });
-
-    console.log("Filtres affichés !");
 }
 
-// === FILTRAGE DES PROJETS PAR CATÉGORIE ===
+/**
+ * Fonction pour filtrer la galerie par catégorie sélectionnée.
+ * Elle récupère les œuvres depuis l'API et filtre celles correspondant à la catégorie choisie avant de les afficher.
+ */
 function filtrerGalerieParCategorie(categorie) {
     fetch(apiUrlWorks)
         .then(res => res.json())
@@ -56,15 +61,15 @@ function filtrerGalerieParCategorie(categorie) {
                 filtered = works.filter(work => work.category.name === categorie);
             }
             afficherGalerie(filtered);
-            console.log("Galerie filtrée par :", categorie);
         })
         .catch(err => console.error("Erreur filtrage :", err));
 }
 
-// === GESTION ADMIN & GALERIE ===
+/**
+ * Écouteur d'événement DOMContentLoaded pour exécuter le code après le chargement complet du DOM.
+ * Gère l'affichage de l'interface admin/utilisateur et l'affichage initial de la galerie.
+ */
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM Ready");
-
     const token = localStorage.getItem("token");
     const isAdmin = localStorage.getItem("isAdmin") === "true";
 
@@ -72,16 +77,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const filtersDiv = document.querySelector(".filters");
     const loginLink = document.querySelector(".nav-login");
 
-    // Gestion des éléments selon le rôle
+    /**
+     * Gestion de l'affichage des éléments de la page en fonction du rôle de l'utilisateur (admin ou non).
+     * Affiche ou masque le bouton "Modifier" et la section des filtres selon que l'utilisateur est admin ou non.
+     * Modifie également le lien de connexion/déconnexion dans la navigation.
+     * Exemple de concaténation dans ce bloc : modification de loginLink.href avec '#' (bien que simple).
+     */
     if (token && isAdmin) {
-        console.log("Admin connecté");
         if (btnModifier) btnModifier.style.display = "block";
         if (filtersDiv) filtersDiv.style.display = "none";
 
-        // Remplacer "login" par "Logout"
         if (loginLink) {
             loginLink.textContent = "Logout";
-            loginLink.href = "#";
+            loginLink.href = "#"; // Exemple simple de concaténation :  '#' est concaténé à l'URL actuelle (qui est vide ici car '#' ne change pas l'URL).
             loginLink.style.fontWeight = "bold";
 
             loginLink.addEventListener("click", (e) => {
@@ -91,18 +99,20 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     } else {
-        console.log("Utilisateur normal");
         if (btnModifier) btnModifier.style.display = "none";
         if (filtersDiv) filtersDiv.style.display = "flex";
     }
 
-    // Appel de l’API pour afficher les projets
+    /**
+     * Appel à l'API pour récupérer et afficher les projets dans la galerie.
+     * Récupère les données depuis l'API_WORKS et appelle afficherGalerie pour les afficher.
+     * Si l'utilisateur n'est pas admin, affiche également le menu des catégories.
+     */
     fetch(apiUrlWorks)
         .then(res => res.json())
         .then(works => {
             afficherGalerie(works);
 
-            // Affiche les filtres uniquement si l’utilisateur n’est pas admin
             if (!token || !isAdmin) {
                 afficherMenuCategories();
             }

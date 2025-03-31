@@ -1,9 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // === FORMULAIRE DE CONNEXION ===
+    /**
+     * Bloc 1: Gestion du formulaire de connexion.
+     * Sélectionne le formulaire de login et la zone d'affichage des erreurs.
+     * Ajoute un écouteur d'événement pour la soumission du formulaire afin de gérer la connexion de l'utilisateur.
+     */
     const formLogin = document.querySelector(".form-login");
     const messageErreur = document.getElementById("message-erreur");
 
     if (formLogin) {
+        /**
+         * Sous-bloc 1.1: Écouteur d'événement pour la soumission du formulaire de connexion.
+         * Empêche la soumission par défaut, récupère les identifiants (email et mot de passe),
+         * envoie une requête POST à l'API de login et gère la réponse (succès ou erreur).
+         */
         formLogin.addEventListener("submit", async (event) => {
             event.preventDefault();
 
@@ -39,16 +48,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // === LIEN LOGIN → LOGOUT ===
+    /**
+     * Bloc 2: Gestion du lien Login/Logout dans la navigation.
+     * Sélectionne le lien de login dans la navigation et récupère le token et le rôle admin depuis le stockage local.
+     * Si un token et le rôle admin sont présents, transforme le lien en "Logout" et ajoute un comportement de déconnexion.
+     * Exemple de concaténation dans ce bloc : modification de loginLink.href avec '#' (bien que simple, '#' est concaténé à l'URL actuelle).
+     */
     const loginLink = document.querySelector(".nav-login");
     const token = localStorage.getItem("token");
     const isAdmin = localStorage.getItem("isAdmin") === "true";
 
     if (loginLink && token && isAdmin) {
         loginLink.textContent = "Logout";
-        loginLink.href = "#";
+        loginLink.href = "#"; // Exemple simple de concaténation: '#' est ajouté à la fin de l'URL (même si cela ne change pas l'URL ici).
         loginLink.style.fontWeight = "bold";
 
+        /**
+         * Sous-bloc 2.1: Écouteur d'événement pour la déconnexion (Logout).
+         * Ajout d'un écouteur d'événement au lien "Logout" pour gérer la déconnexion de l'utilisateur.
+         * Efface les données du stockage local (token, isAdmin) et recharge la page pour mettre à jour l'interface.
+         */
         loginLink.addEventListener("click", (e) => {
             e.preventDefault();
             localStorage.clear();

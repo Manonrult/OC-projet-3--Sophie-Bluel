@@ -487,306 +487,6 @@ body.login-page footer {
 }
 
 
-#modifier-button {
-	display: flex;
-	align-items: center;
-	gap: 6px;
-	font-size: 14px;
-	font-weight: 400;
-	color: rgba(0, 0, 0, 1);
-	text-decoration: none;
-	cursor: pointer;
-}
-
-/* ✅ Style de l’icône */
-#modifier-icon {
-	font-size: 15.58px;
-	font-weight: bold;
-	/* ✅ Icône en gras */
-	color: rgb(0, 0, 0);
-}
-
-
-.modal {
-	width: 630px;
-	height: 670px;
-	background: rgba(255, 255, 255, 1);
-	border-radius: 10px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	display: none;
-	z-index: 1000;
-	padding: 20px;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
-}
-
-/* ✅ Conteneur photo upload */
-.modal-photo-upload {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	width: 420px;
-	/* Largeur alignée sur les champs */
-	height: 169px;
-	background: rgba(232, 241, 246, 1);
-	border-radius: 3px;
-	margin: 26px auto 36px;
-	/* Centrage automatique */
-	text-align: center;
-}
-
-/* ✅ Icône image */
-.modal-photo-upload i {
-	font-size: 76px;
-	color: rgba(100, 100, 100, 0.6);
-	margin-top: 13px;
-}
-
-/* ✅ Texte jpg/png sous upload */
-.modal-photo-upload p {
-	font-size: 12px;
-	color: rgba(100, 100, 100, 0.8);
-	margin-top: 5px;
-}
-
-/* ✅ Style du bouton "Ajouter photo" */
-a#btn-ajouter-photo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 173px;
-	height: 36px;
-	border-radius: 50px;
-	background: rgba(203, 214, 220, 1);
-	color: black;
-	font-family: "Work Sans", sans-serif;
-	font-weight: 500;
-	font-size: 14px;
-	text-align: center;
-	text-decoration: none;
-	transition: background 0.3s ease;
-	cursor: pointer;
-}
-
-/* ✅ Effet hover sur le bouton */
-a#btn-ajouter-photo:hover {
-	background: rgba(190, 200, 210, 1);
-}
-
-/* ✅ Icônes de la modale (flèche et croix) */
-.modal-icon {
-	position: absolute;
-	font-size: 21px;
-	color: black;
-	text-decoration: none;
-}
-
-/* 🔹 Flèche de retour */
-#modal-back {
-	top: 26px;
-	left: 30px;
-}
-
-/* 🔹 Croix de fermeture */
-#modal-close {
-	top: 26px;
-	right: 30px;
-}
-
-/* ✅ Titre de la modale */
-.modal h3 {
-	font-size: 26px;
-	font-weight: 400;
-	margin-top: 60px;
-	text-align: center;
-	margin-bottom: 56px;
-}
-
-/* ✅ Formulaire */
-#photo-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 420px;
-	margin: 0 auto;
-	/* Centrage automatique */
-}
-
-/* ✅ Labels */
-#photo-form label {
-	font-size: 14px;
-	font-weight: 500;
-	text-align: left;
-	width: 100%;
-	margin-bottom: 10px;
-}
-
-/* ✅ Champs (input et select) */
-#photo-form input,
-#photo-form select {
-	width: 100%;
-	height: 51px;
-	background: rgba(255, 255, 255, 1);
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	border: none;
-	border-radius: 5px;
-	padding: 10px;
-	font-size: 14px;
-	font-family: "Work Sans", sans-serif;
-	margin-bottom: 15px;
-	box-sizing: border-box;
-}
-
-/* ✅ Ligne de séparation */
-#photo-form-separator {
-	width: 100%;
-	height: 0;
-	border-top: 1px solid rgba(179, 179, 179, 1);
-	margin-top: 47px;
-	margin-bottom: 32px;
-}
-
-/* ✅ Bouton "Valider" */
-#photo-form button#photo-validate {
-	width: 80%;
-	height: 51px;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-	background-color: rgba(48, 102, 133, 1);
-	color: white;
-	border: none;
-	border-radius: 25px;
-	text-align: center;
-	transition: background-color 0.3s ease;
-}
-
-/* 🔹 Hover bouton "Valider" */
-#photo-form button#photo-validate:hover {
-	background-color: rgba(40, 85, 110, 1);
-}
-
-/* ✅ Bouton désactivé */
-#photo-form button#photo-validate:disabled {
-	background-color: lightgray;
-	color: #777;
-	cursor: not-allowed;
-}
-
-.hidden {
-	display: none;
-}
-
-
-/* ✅ Style de la galerie */
-.gallery-grid {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	justify-content: center;
-	padding: 10px;
-}
-
-/* ✅ Style des projets affichés dans la galerie */
-.modal-project {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 120px;
-	margin: 5px;
-	position: relative;
-}
-
-/* ✅ Images dans la galerie */
-.modal-project-image {
-	width: 76.86px;
-	height: 102.57px;
-	object-fit: cover;
-
-}
-
-/* ✅ Bouton de suppression */
-/* ✅ Bouton de suppression (corbeille) */
-.btn-delete {
-	width: 17px;
-	height: 17px;
-	background: black;
-	border: none;
-	border-radius: 3px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	position: absolute;
-	top: 9px;
-	right: 25px;
-
-
-}
-
-/* ✅ Icône de la corbeille */
-.btn-delete i {
-	font-size: 12px;
-	/* Ajuste la taille */
-	color: white;
-	/* Corbeille blanche */
-}
-
-/* ✅ Effet au survol */
-.btn-delete:hover {
-	background: rgba(0, 0, 0, 0.8);
-	/* Légère transparence au survol */
-}
-
-/* ✅ Bouton "Ajouter une photo" */
-#btn-open-upload {
-	width: 237px;
-	height: 36px;
-	background: rgba(29, 97, 84, 1);
-	/* Couleur de fond */
-	border: none;
-	border-radius: 60px;
-	/* Coins arrondis */
-	color: white;
-	/* Texte blanc */
-	font-family: "Syne", sans-serif;
-	font-weight: 700;
-	font-size: 14px;
-	line-height: 100%;
-	letter-spacing: 0%;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	margin: auto;
-	margin-top: 15px;
-	/* Ajuste selon besoin */
-	transition: background 0.3s ease-in-out;
-}
-
-#photo-ajout-separator {
-	width: 80%;
-	height: 0;
-	border-top: 1px solid rgba(48, 102, 133, 1) ;
-	margin-top: 47px;
-	margin-bottom: 32px;
-	margin-left: 60px;
-}
-
-.filters {
-	display: flex !important;
-	justify-content: center;
-	flex-wrap: wrap;
-	gap: 10px;
-	margin: 20px 0;
-	padding: 10px;
-
-}
-
 .filter-button {
 	width: auto;
 	/* s'adapte au texte */
@@ -822,8 +522,8 @@ a#btn-ajouter-photo:hover {
 	text-align: center;
 	transition: all 0.3s ease;
 	margin: 10px auto;
-	/* centré par défaut */
 	display: block;
+	/* centré par défaut */
 }
 
 .logout-button:hover {
@@ -831,12 +531,345 @@ a#btn-ajouter-photo:hover {
 	color: white;
 }
 
+/* Bouton "Modifier" (pour l'admin) */
+#modifier-button {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 14px;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 1);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* Style de l’icône "Modifier" */
+#modifier-icon {
+	font-size: 15.58px;
+	font-weight: bold;
+	/* Icône en gras */
+	color: rgb(0, 0, 0);
+}
+
+/* Bouton "Ajouter photo" dans la modale */
+a#btn-ajouter-photo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	background: rgba(203, 214, 220, 1);
+	color: rgba(48, 102, 133, 1);
+	font-family: "Work Sans", sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	margin-top: 15px;
+	text-align: center;
+	text-decoration: none;
+	transition: background 0.3s ease;
+	cursor: pointer;
+}
+
+/* Effet hover sur le bouton "Ajouter photo" */
+a#btn-ajouter-photo:hover {
+	background: rgba(190, 200, 210, 1);
+	/* Hover effect still light gray */
+}
+
+/* Bouton "Valider" dans le formulaire de la modale */
+#photo-form button#photo-validate {
+	width: 80%;
+	height: 51px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color:rgba(29, 97, 84, 1);
+	/* Couleur par défaut désactivé */
+	color: white !important;
+	/* Couleur texte blanc, important pour override */
+	border: none;
+	border-radius: 25px;
+	text-align: center;
+	transition: background-color 0.3s ease;
+	opacity: 1;
+	/* Forcer l’opacité même quand disabled */
+}
+
+/* Hover bouton "Valider" */
+#photo-form button#photo-validate:hover {
+	background-color: rgba(29, 97, 84, 1);
+	/* Couleur hover inchangée */
+}
+
+/* Bouton "Valider" désactivé */
+#photo-form button#photo-validate:disabled {
+	background-color: lightgray;
+	color: #777 !important;
+	/* Garde le texte plus foncé, important pour override */
+	opacity: 1 !important;
+	/* Empêcher le fade out du disabled, important pour override */
+	cursor: not-allowed;
+}
+
+/* Bouton "Valider" activé (classe 'enabled' ajoutée par JS) */
+#photo-validate.enabled {
+	background-color: rgba(29, 97, 84, 1);
+	color: white;
+	cursor: pointer;
+}
+
+/* Bouton "Ajouter une photo" (Ouvre la vue upload dans la modale) */
+#btn-open-upload {
+	width: 237px;
+	height: 36px;
+	background: rgba(29, 97, 84, 1);
+	/* Couleur de fond */
+	border: none;
+	border-radius: 60px;
+	/* Coins arrondis */
+	color: white;
+	/* Texte blanc */
+	font-family: "Syne", sans-serif;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	margin: auto;
+	margin-top: 15px;
+	/* Ajuste selon besoin */
+	transition: background 0.3s ease-in-out;
+}
+
+
+/* ==================================================
+   Filtres
+   ================================================== */
+
+.filters {
+	display: flex !important;
+	/* Important pour override styles potentiels */
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 20px 0;
+	padding: 10px;
+}
+
+
+/* ==================================================
+   Modale (Général, Conteneur, Icônes, Titre)
+   ================================================== */
+
+.modal {
+	width: 630px;
+	height: 670px;
+	background: rgba(255, 255, 255, 1);
+	border-radius: 10px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+	/* Masquée par défaut */
+	z-index: 1000;
+	padding: 20px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Icônes de la modale (flèche retour et croix fermeture) */
+.modal-icon {
+	position: absolute;
+	font-size: 21px;
+	color: black;
+	text-decoration: none;
+}
+
+/* Flèche de retour */
+#modal-back {
+	top: 26px;
+	left: 30px;
+}
+
+/* Croix de fermeture */
+#modal-close {
+	top: 26px;
+	right: 30px;
+}
+
+/* Titre de la modale */
+.modal h3 {
+	font-size: 26px;
+	font-weight: 400;
+	margin-top: 60px;
+	text-align: center;
+	margin-bottom: 56px;
+}
+
+
+/* ==================================================
+   Modale - Galerie (Grille, Projets, Images, Bouton Supprimer)
+   ================================================== */
+
+/* Style de la galerie dans la modale */
+.gallery-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+	padding: 10px;
+}
+
+/* Style des projets affichés dans la galerie modale */
+.modal-project {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 120px;
+	margin: 5px;
+	position: relative;
+}
+
+/* Images dans la galerie modale */
+.modal-project-image {
+	width: 76.86px;
+	height: 102.57px;
+	object-fit: cover;
+}
+
+/* Bouton de suppression (corbeille) sur les images de la galerie modale */
+.btn-delete {
+	width: 17px;
+	height: 17px;
+	background: black;
+	border: none;
+	border-radius: 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: absolute;
+	top: 9px;
+	right: 25px;
+}
+
+/* Icône de la corbeille */
+.btn-delete i {
+	font-size: 12px;
+	/* Ajuste la taille */
+	color: white;
+	/* Corbeille blanche */
+}
+
+/* Effet au survol du bouton de suppression */
+.btn-delete:hover {
+	background: rgba(0, 0, 0, 0.8);
+	/* Légère transparence au survol */
+}
+
+
+/* ==================================================
+   Modale - Formulaire Ajout Photo (Conteneur, Champs, Séparateurs, Aperçu)
+   ================================================== */
+
+/* Conteneur photo upload (zone grise pour l'upload) */
+.modal-photo-upload {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	width: 420px;
+	/* Largeur alignée sur les champs */
+	height: 169px;
+	background: rgba(232, 241, 246, 1);
+	border-radius: 3px;
+	margin: 26px auto 36px;
+	/* Centrage automatique */
+	text-align: center;
+}
+
+/* Icône image dans le conteneur upload */
+.modal-photo-upload i {
+	font-size: 76px;
+	color: rgba(100, 100, 100, 0.6);
+	margin-top: 13px;
+}
+
+/* Texte jpg/png sous l'icône upload */
+.modal-photo-upload p {
+	font-size: 12px;
+	color: rgba(100, 100, 100, 0.8);
+	margin-top: 5px;
+}
+
+/* Formulaire d'ajout de photo */
+#photo-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 420px;
+	margin: 0 auto;
+	/* Centrage automatique */
+}
+
+/* Labels du formulaire */
+#photo-form label {
+	font-size: 14px;
+	font-weight: 500;
+	text-align: left;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+/* Champs du formulaire (input et select) */
+#photo-form input,
+#photo-form select {
+	width: 100%;
+	height: 51px;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	font-size: 14px;
+	font-family: "Work Sans", sans-serif;
+	margin-bottom: 15px;
+	box-sizing: border-box;
+}
+
+/* Ligne de séparation dans le formulaire (après les champs, avant le bouton) */
+#photo-form-separator {
+	width: 100%;
+	height: 0;
+	border-top: 1px solid rgba(179, 179, 179, 1);
+	margin-top: 47px;
+	margin-bottom: 32px;
+}
+
+/* Ligne de séparation APRES bouton "Ajouter une photo" dans la modale */
+#photo-ajout-separator {
+	width: 80%;
+	height: 0;
+	border-top: 1px solid rgba(48, 102, 133, 1);
+	margin-top: 47px;
+	margin-bottom: 32px;
+	margin-left: 60px;
+	/* Ajustement marge gauche pour centrer visuellement */
+}
+
+/* Zone d'aperçu de l'image uploadée */
 #image-preview {
 	margin-top: 5px;
 	display: flex;
 	justify-content: center;
 }
 
+/* Style de l'image en aperçu */
 .preview-img {
 	width: 129px;
 	height: 163px;
@@ -844,60 +877,15 @@ a#btn-ajouter-photo:hover {
 	border-radius: 5px;
 }
 
-/* .form-error-message {
-	display: none;
-	color: red;
-	font-size: 14px;
-	margin-top: 10px;
-	text-align: center;
-} */
 
-#photo-validate {
-	color: white !important;
-	background-color: gray;
-	border: none;
-	padding: 12px 32px;
-	border-radius: 30px;
-	font-weight: bold;
-	font-size: 1rem;
-	opacity: 1;
-	/* ✅ forcer l’opacité même quand disabled */
-	cursor: not-allowed;
-	transition: background-color 0.3s ease;
-}
+/* ==================================================
+   Messages (Succès, Erreur) & Classe 'hidden'
+   ================================================== */
 
-#photo-validate:disabled {
-	color: white !important;
-	/* ✅ garde le texte blanc */
-	background-color: #ccc;
-	/* ou garde gray */
-	opacity: 1 !important;
-	/* ✅ empêcher le fade out du disabled */
-}
-
-#photo-validate.enabled {
-	background-color: rgba(29, 97, 84, 1);
-	color: white;
-	cursor: pointer;
-}
-
-#btn-ajouter-photo {
-	color: rgba(48, 102, 133, 1) !important;
-	border: none;
-	padding: 12px 16px;
-	border-radius: 25px;
-	font-weight: 600;
-	transition: 0.3s ease;
-	display: inline-block;
-	text-align: center;
-	cursor: pointer;
-}
-
-#auth-link {
-	font-weight: bold;
-}
+/* Message de succès (ex: "Image ajoutée avec succès") dans la modale */
 .modal-message {
 	display: none;
+	/* Masqué par défaut */
 	background-color: rgba(48, 102, 133, 1);
 	color: white;
 	padding: 10px 16px;
@@ -906,6 +894,20 @@ a#btn-ajouter-photo:hover {
 	text-align: center;
 	font-size: 14px;
 	animation: fadein 0.3s ease;
+	/* Animation fade-in (non définie ici, dans global ?) */
 }
 
+/* Message d'erreur du formulaire (ex: "Veuillez remplir tous les champs") */
+.form-error-message {
+	display: none;
+	/* Masqué par défaut */
+	color: red;
+	font-size: 14px;
+	margin-top: 10px;
+	text-align: center;
+}
 
+/* Classe 'hidden' pour masquer des éléments (utilisée en JS) */
+.hidden {
+	display: none;
+}
