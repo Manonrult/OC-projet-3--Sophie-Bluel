@@ -525,6 +525,14 @@ body.login-page footer {
 	display: block;
 	/* centré par défaut */
 }
+.gallery img,
+.modal-project-image {
+	width: 366.68px;
+	height: 490.9px;
+	object-fit: cover;
+	object-position: center;
+	display: block;
+}
 
 .logout-button:hover {
 	background-color: rgba(29, 97, 84, 1);
@@ -681,6 +689,7 @@ a#btn-ajouter-photo:hover {
 	padding: 20px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
 }
+
 
 /* Icônes de la modale (flèche retour et croix fermeture) */
 .modal-icon {
