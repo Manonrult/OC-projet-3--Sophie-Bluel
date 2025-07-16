@@ -1,21 +1,35 @@
 //Constantes 
 const baseurl = "http://localhost:5678/api";
-//Début du code
-    //Ajout projets
-ajoutProjets(); //appeler fonction 
-    //
-ajoutCategories();
+const worksSet = new Set(); //stocker les projets chargés par l'api
+
+//Début du code(rechargement page)
+initialiserPage();
 
 
 //Fonctions
-    //Afficher les projets en dynamique
-async function ajoutProjets(){
+
+async function initialiserPage(){
+    await recupererProjets();
+    ajoutProjets(0); //appeler fonction 
+    ajoutCategories();
+    }
+
+async function recupererProjets(){
     const reponse = await fetch(baseurl+"/works");
     const listeProjets = await reponse.json();
     console.log(listeProjets);
-    let gallery = document.querySelector(".gallery"); //récupérer balise gallery du html à modifier
-    
     listeProjets.forEach(projet => {
+        worksSet.add(projet);
+    });
+}
+    //Afficher les projets en dynamique
+async function ajoutProjets(id){
+    console.log(worksSet.size)
+    let gallery = document.querySelector(".gallery"); //récupérer balise gallery du html à modifier
+    gallery.innerHTML=""; //vider la galerie
+    
+    worksSet.forEach(function (projet){
+    if (id==projet.category.id||id==0){
      //Création figure
      const figure = document.createElement("figure");
 
@@ -33,6 +47,7 @@ async function ajoutProjets(){
 
      //ajouter à la gallery
      gallery.appendChild(figure);
+    }
     });
 }
 
@@ -45,14 +60,22 @@ async function ajoutCategories(){
     let categories = document.querySelector(".categories");
 
     const boutonTous = document.createElement("li");
-    boutonTous.textContent = "Tous"
+    boutonTous.textContent = "Tous";
+    boutonTous.addEventListener('click',()=>{
+        console.log("Bouton cliqué");
+        ajoutProjets(0);
+    });
     categories.appendChild(boutonTous);
 
     boutonCategories.forEach(bouton => {
         const nomCategorie = document.createElement("li");
         nomCategorie.textContent = bouton.name;
-
-       categories.appendChild(nomCategorie);
+        nomCategorie.addEventListener('click',()=>{
+            console.log("Bouton cliqué");
+            ajoutProjets(bouton.id);
+        });
+            
+        categories.appendChild(nomCategorie);
        
     })
 }
