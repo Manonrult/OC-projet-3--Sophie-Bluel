@@ -185,4 +185,28 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+/**Categories**/
+.categories {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 40px;
+	margin-top: 40px;
+}
+
+.categories li{
+	border-radius: 60px;
+	border: 1px solid #1D6154;
+	color: #1D6154;
+	font-weight: bold;
+	font-size: 16px;
+	font-family: syne;
+	padding: 10px 15px;
+}
+
+.categories li:hover{
+	background-color: #1D6154;
+	color: #FFFFFF;
+}
+
 

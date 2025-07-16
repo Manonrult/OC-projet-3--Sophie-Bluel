@@ -1,10 +1,16 @@
+//Constantes 
+const baseurl = "http://localhost:5678/api";
 //Début du code
     //Ajout projets
 ajoutProjets(); //appeler fonction 
+    //
+ajoutCategories();
+
 
 //Fonctions
+    //Afficher les projets en dynamique
 async function ajoutProjets(){
-    const reponse = await fetch("http://localhost:5678/api/works");
+    const reponse = await fetch(baseurl+"/works");
     const listeProjets = await reponse.json();
     console.log(listeProjets);
     let gallery = document.querySelector(".gallery"); //récupérer balise gallery du html à modifier
@@ -30,3 +36,23 @@ async function ajoutProjets(){
     });
 }
 
+    //Menu catégories 
+async function ajoutCategories(){
+    const reponse = await fetch(baseurl+"/categories");
+    const boutonCategories = await reponse.json();
+    console.log(boutonCategories);
+
+    let categories = document.querySelector(".categories");
+
+    const boutonTous = document.createElement("li");
+    boutonTous.textContent = "Tous"
+    categories.appendChild(boutonTous);
+
+    boutonCategories.forEach(bouton => {
+        const nomCategorie = document.createElement("li");
+        nomCategorie.textContent = bouton.name;
+
+       categories.appendChild(nomCategorie);
+       
+    })
+}
