@@ -290,3 +290,9 @@ nav ul li.active-page a{
 	size: 14px;
 	text-align: center;
 }
+.error-message{
+	font-family: Work Sans;
+	size: 16px;
+	color:#B1663C;
+	font-weight: bold;
+}
