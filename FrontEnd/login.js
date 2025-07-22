@@ -3,8 +3,12 @@
         boutonConnexion();
 
 //Fonctions 
-
-
+function displayErrorMessage(message) {
+    const pError = document.querySelector(".error-message"); 
+    if (pError) {
+        pError.textContent = message;
+    }
+}
     //Click
 function boutonConnexion() {
     const boutonlogin = document.querySelector(".boutonlogin");
@@ -23,6 +27,32 @@ async function login() {
     const passwordInput = document.getElementById("password");
     const password = passwordInput.value;
 
+    //Validation RegExp
+    let emailRegex = new RegExp("^[a-zA-Z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9]+");
+    let reponseEmail = emailRegex.test(email);
+    console.log(reponseEmail);
+
+    let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$");
+    let reponsePassword = passwordRegex.test(password);
+    console.log(reponsePassword);
+
+    //Si email && password faux alors message d'erreur
+    if(!reponseEmail && !reponsePassword){
+        displayErrorMessage("Format d'email et mot de passe invalide");
+        return;
+    }
+
+    if(!reponseEmail){
+        displayErrorMessage("Format d'email invalide.");
+        console.log("Validation email échouée.");
+        return;
+        }
+        
+    if(!reponsePassword){
+        displayErrorMessage("Mot de passe invalide.");
+        console.log("Validation mot de passe échoué.");
+        return;
+    }
 
     try {
         const apiEndpoint = "http://localhost:5678/api/users/login";
@@ -53,14 +83,13 @@ async function login() {
             });
         }else {
             const errorMessage = data.message || `Erreur HTTP: ${reponse.status}. Une erreur inconnue est survenue.`;
-            const pError = document.querySelector(".error-message");
-            pError.textContent = errorMessage;
+            displayErrorMessage(errorMessage);
             
             console.error('Erreur API (HTTP:',reponse.status, data)
         }
 
     }catch (error){
-        showMessage('Impossible de se connecter au serveur. Veuillez vérifier votre connexion internet ou réessayer plus tard.');
+        displayErrorMessage('Impossible de se connecter au serveur. Veuillez vérifier votre connexion internet ou réessayer plus tard.');
         console.error('Erreur de reseau ou de parsing Json:');
     }
 }
