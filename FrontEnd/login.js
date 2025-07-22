@@ -1,9 +1,11 @@
 //Début du code 
-boutonConnexion();
 
+        boutonConnexion();
 
 //Fonctions 
-    //1.Click
+
+
+    //Click
 function boutonConnexion() {
     const boutonlogin = document.querySelector(".boutonlogin");
     boutonlogin.addEventListener('click', async (event)=>{
@@ -35,11 +37,13 @@ async function login() {
             })
         });
             const data = await reponse.json();
+
         if (reponse.ok) {
             //récupérer le token et stocker le token dans un local storage
             if (data.token){
                 localStorage.setItem('authToken', data.token);
-                console.log('Token API stocké:',data.token)
+                console.log('Token API stocké:',data.token);
+                updateLoginLink();
             } else {
                 console.warn('l\'API n\'a pas renvoyé de token')
             }

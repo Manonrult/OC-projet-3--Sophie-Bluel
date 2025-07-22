@@ -7,10 +7,20 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+	<div id="mode-edition"> 
+		<p>
+		<a href="#" id="ouvrir-modal-modifier" aria-label="Ouvrir le modal d'édition des projets">
+			<i class="fa-solid fa-pen-to-square"></i>
+		</a>
+		Mode édition </p>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -35,7 +45,14 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<h2>Mes Projets
+			<span id="editer-projets">
+			<a href="#" id="ouvrir-modal" aria-label="Ouvrir le modal d'édition des projets">
+				<i class="fa-solid fa-pen-to-square"></i>
+			</a> 
+			modifier
+			</span>
+		</h2>
 
 			<ul class="categories">
 			</ul>
@@ -47,7 +64,7 @@
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
 		<form action="#" method="post">
-			<label for="name">Nom</label>
+		Slabel for="name">Nom</label>
 			<input type="text" name="name" id="name">
 			<label for="email">Email</label>
 			<input type="email" name="email" id="email">
@@ -66,5 +83,6 @@
 	</nav>
 </footer>
 	<script src="script.js"></script>
+	<script src="commun.js"></script>
 </body>
 </html>

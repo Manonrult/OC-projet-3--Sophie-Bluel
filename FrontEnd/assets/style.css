@@ -296,3 +296,43 @@ nav ul li.active-page a{
 	color:#B1663C;
 	font-weight: bold;
 }
+.footer-page-login {
+	margin-top: 15%;
+}
+
+/*****Mode édition*****/
+#mode-edition {
+	background-color:#000;
+	color:#FFFFFF;
+	font-family: Work Sans;
+	font-size: 16px;
+	text-align: center;
+	height: 59px;
+	display: block;
+	align-content: center;
+	display: none;
+	
+}
+#mode-edition i{
+	color: #FFFFFF;
+	font-weight: normal;
+}
+
+#editer-projets{
+	color:#000;
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: normal;
+	padding-left: 20px;
+	display: none;
+	
+}
+
+#editer-projets i{
+	color: #000;
+	font-weight: normal;
+}
+
+#editer-projets a{
+	text-decoration: none;
+}
