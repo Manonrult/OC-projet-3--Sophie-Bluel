@@ -1,0 +1,172 @@
+/*****Style arrière-plan*****/
+
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/******Styles modal général*****/
+#modal-galerie-photo{
+    display: none;
+}
+
+.modal-wrapper{
+    background-color:#FFFFFF ;
+    border-radius: 10px;
+    width: 630px;
+    height: 688px;
+    position: relative ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.js-modal-precedent, .js-modal-fermer{
+    border: none;
+    background-color: transparent;
+    
+}
+.js-modal-precedent {
+ position: absolute;
+  top: 21px;
+  left: 21px;
+  font-size: 23px;
+}
+
+.js-modal-fermer{
+    position: absolute;
+    top: 24px;
+    left: 580px;
+    font-size: 20px;
+}
+
+h3{
+    font-family: Work Sans;
+    font-size: 26px;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.modal-separation{
+    color: #B3B3B3;
+    border-width: 1px;
+    width: 420px;
+}
+
+/*****Styles modal Galerie photo*****/
+.js-modal-add-photo{
+    background-color:#1D6154 ;
+    width: 237px;
+    margin-top: 30px;
+    height: 36px;
+    font-family: Syne;
+    font-weight: bold;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 60px;
+    border-style: none;
+}
+#galerie-miniatures{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 80%;
+    max-height: 400px;
+    margin-bottom: 20px;
+}
+/*****Modal Ajout Projets*****/
+#modal-ajout-photo{
+    display: none;
+}
+
+.modal-ajout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.selectionner-photo{
+    background-color: #E8F1F6;
+    width: 420px;
+    height: 169px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 8px;
+}
+.selectionner-photo i{
+    color:#B9C5CC ;
+    font-size: 68px;
+}
+.add-photo{
+    border-radius:50px;
+    background-color: #CBD6DC;
+    border: none;
+    color: #306685;
+    width: 173px;
+    height: 36px;
+    size: 14px;
+    font-family: Work Sans;
+    font-weight: bold;
+    margin: 10px 0px 10px 0px;
+}
+.selectionner-photo p{
+    font-size: 10px;
+    font-family: Work Sans;
+    color: #444444;
+}
+
+.titre, .categorie{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom:40px ;
+    font-family: Work Sans;
+    font-size: 14px;
+    color: #3D3D3D;
+    font-weight: 600;
+    
+}
+.titre input, .categorie select{
+    border-style: none;
+	box-shadow:0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+    background-color: #FFFFFF;
+    height: 51px;
+    width: 420px;
+    margin-top: 10px;   
+    color: #444444;
+    
+}
+#categorie {
+    -webkit-appearance: none; /* Pour Chrome, Safari, Edge */
+    -moz-appearance: none;    /* Pour Firefox */
+    appearance: none;         /* Standard */
+    
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpolyline points="6 9 12 15 18 9"%3E%3C/polyline%3E%3C/svg%3E'); /* Exemple d'icône SVG base64 (flèche vers le bas) */
+    background-repeat: no-repeat;
+    background-position: right 25px center; 
+    background-size: 14px; 
+    color: #6C6C6C;
+}
+
+#boutonValider{
+    background-color:#A7A7A7 ;
+    width: 237px;
+    margin-top: 20px;
+    height: 36px;
+    font-family: Syne;
+    font-weight: bold;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 60px;
+    border-style: none;
+}
