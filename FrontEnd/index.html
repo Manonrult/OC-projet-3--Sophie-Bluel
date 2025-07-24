@@ -17,7 +17,7 @@
 <body>
 	<div id="mode-edition"> 
 		<p>
-		<a href="#modal-galerie-photo" id="ouvrir-modal-modifier" aria-label="Ouvrir le modal d'édition des projets">
+		<a href="#modal-galerie-photo" class="ouvrir-modal-galerie" aria-label="Ouvrir le modal d'édition des projets">
 			<i class="fa-solid fa-pen-to-square"></i>
 		</a>
 		Mode édition </p>
@@ -48,11 +48,10 @@
 	<section id="portfolio">
 		<h2>Mes Projets
 			<span id="editer-projets">
-			<a href="#modal-galerie-photo" id="ouvrir-modal" aria-label="Ouvrir le modal d'édition des projets">
+			<a href="#modal-galerie-photo" class="ouvrir-modal-galerie" aria-label="Ouvrir le modal d'édition des projets">
 				<i class="fa-solid fa-pen-to-square"></i>
 				modifier
 			</a> 
-			
 			</span>
 		</h2>
 
@@ -84,54 +83,57 @@
 		</ul>
 	</nav>
 </footer>
-	<div id="modal-galerie-photo" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-		<div class="modal-wrapper">
-			<button class="js-modal-fermer" aria-label="Fermer le modal">
-				<i class="fa-solid fa-xmark"></i>
-			</button>
-			<h3 id="modalTitle">Galerie photo</h3>
+<!--Modal-->
+<div id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+	<div class="modal-wrapper">
+		<div class="modal-content">
+			<div id="modal-galerie-photo" class="step">
+				<button class="js-modal-fermer" aria-label="Fermer le modal">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+				<h3 id="modalTitle">Galerie photo</h3>
 
-			<div id="galerie-miniatures">
-				
-			</div>
-			<hr class="modal-separation">
-			<button class="js-modal-add-photo" data-target="modal-ajout-photo">Ajouter une photo</button>
-		</div>
-	</div>
+				<div id="galerie-miniatures">
 
-	<div id="modal-ajout-photo" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalAddPhotoTitle">
-		<div class="modal-wrapper">
-			<button class="js-modal-precedent" aria-label="Revenir à ajout photo">
-				<i class="fa-solid fa-arrow-left"></i>
-			</button>
-			<button class="js-modal-fermer" aria-label="Fermer le modal">
-				<i class="fa-solid fa-xmark"></i>
-			</button>
-			<h3 id="modalAddPhotoTitle">Ajout Photo</h3>
-			<div class="modal-ajout">
-				<div class="selectionner-photo">
-					<i class="fa-regular fa-image"></i>
-					<button class="add-photo" aria-label="Ajouter une photo">+ Ajouter photo</button>
-					<p>jpg, png : 4mo max</p>
 				</div>
-				<form id="formulaire-titre-categorie">
-					<div class="titre">
-						<label for="titre">Titre</label>
-                        <input type="text" id="titre" name="titre"required autocomplete="titre">
-					</div>
-					<div class="categorie">
-						<label for="categorie">Catégorie</label>	
-						<select id="categorie" name="categorie" required>
-							<option value=""></option>
-						</select>
-					</div>
-				</form>
+				<hr class="modal-separation">
+				<button class="js-modal-add-photo" data-target="modal-ajout-photo">Ajouter une photo</button>
 			</div>
-			<hr class="modal-separation">
-			<button class="js-modal-valider"id="boutonValider" data-target="modal-valider" disabled>Valider</button>
+	
+			<div id="modal-ajout-photo" class="step">
+				<button class="js-modal-precedent" aria-label="Revenir à ajout photo">
+					<i class="fa-solid fa-arrow-left"></i>
+				</button>
+				<button class="js-modal-fermer" aria-label="Fermer le modal">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+				<h3 id="modalAddPhotoTitle">Ajout Photo</h3>
+				<div class="modal-ajout">
+					<div class="selectionner-photo">
+						<i class="fa-regular fa-image"></i>
+						<button class="add-photo" aria-label="Ajouter une photo">+ Ajouter photo</button>
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<form id="formulaire-titre-categorie">
+						<div class="titre">
+							<label for="titre">Titre</label>
+							<input type="text" id="titre" name="titre"required autocomplete="titre">
+						</div>
+						<div class="categorie">
+							<label for="categorie">Catégorie</label>	
+							<select id="categorie" name="categorie" required>
+								<option value=""></option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<hr class="modal-separation">
+				<button class="js-modal-valider"id="boutonValider" data-target="modal-valider" disabled>Valider</button>
+			</div>
 		</div>
 	</div>
-	
+</div>
+
 	<script src="script.js"></script>
 	<script src="commun.js"></script>
 </body>
