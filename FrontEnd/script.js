@@ -3,6 +3,18 @@ const baseurl = "http://localhost:5678/api";
 const worksSet = new Set(); //stocker les projets chargés par l'api
 let categorieFiltreActive = 0;
 
+
+//Eléments du formulaire d'ajout de projet
+const formAddProjet = document.getElementById('formulaire-titre-categorie');
+const inputTitre = document.getElementById('titre');
+const selectCategorie = document.getElementById('select-categorie');
+const fileInput = document.getElementById('fileInput');
+const submitBoutonValider = document.getElementById('submitBoutonValider');
+//Récupération 3 feneêtres modales
+const modalGlobal = document.getElementById("modal");
+const modalGalerie = document.getElementById("modal-galerie-photo");
+const modalAjoutPhoto = document.getElementById("modal-ajout-photo")
+
 //Début du code(rechargement page)
 initialiserPage();
 
@@ -15,20 +27,23 @@ async function initialiserPage(){
     ajoutProjets(0); //appeler fonction avec la catégorie "Tous"
     ajoutCategories();
     ouvrirModal();
-    fermerModal();
+    fermetureModalClick();
+    pageNewProjet();
+    configureExplorateurFichiers();
+    gererRetourModal()
+    checkAddPhotoForm(); //pour vérifier l'état du formualire de chargement 
     }
 
 async function recupererProjets(){
+    worksSet.clear();
     const reponse = await fetch(baseurl+"/works");
     const listeProjets = await reponse.json();
-    console.log(listeProjets);
     listeProjets.forEach(projet => {
         worksSet.add(projet);
     });
 }
     //Afficher les projets en dynamique
 async function ajoutProjets(idCategorie){
-    console.log(worksSet.size)
     let gallery = document.querySelector(".gallery"); //récupérer balise gallery du html à modifier
     gallery.innerHTML=""; //vider la galerie
 
@@ -38,7 +53,7 @@ async function ajoutProjets(idCategorie){
     
     worksSet.forEach(function (projet){
         //filtre 
-    if (idCategorie==projet.category.id||idCategorie == 0){
+    if (idCategorie==parseInt(projet.category.id)||idCategorie == 0){
      //Création figure
      const figure = document.createElement("figure");
 
@@ -85,11 +100,10 @@ async function ajoutProjets(idCategorie){
 
     //Menu catégories 
 async function ajoutCategories(){
-    const reponse = await fetch(baseurl+"/categories");
-    const boutonCategories = await reponse.json();
-    console.log(boutonCategories);
+    const boutonCategories = await recupererCategories();
 
     let categories = document.querySelector(".categories");
+    let categorieSelect = document.getElementById("select-categorie");
 
     const boutonTous = document.createElement("li");
     boutonTous.textContent = "Tous";
@@ -100,22 +114,34 @@ async function ajoutCategories(){
     });
     categories.appendChild(boutonTous);
 
-    boutonCategories.forEach(bouton => {
-        const nomCategorie = document.createElement("li");
-        nomCategorie.textContent = bouton.name;
-        nomCategorie.addEventListener('click',()=>{
-            categorieFiltreActive = bouton.id;
+    boutonCategories.forEach(categorie => {
+        //Gestion boutons projets
+        const nomCategorieBtn = document.createElement("li");
+        nomCategorieBtn.textContent = categorie.name;
+        nomCategorieBtn.addEventListener('click',()=>{
+            categorieFiltreActive = categorie.id;
             console.log("Bouton cliqué");
-            ajoutProjets(bouton.id);
+            ajoutProjets(categorie.id);
         });
-            
-        categories.appendChild(nomCategorie);
-    })
+        categories.appendChild(nomCategorieBtn);
+        //Gestion formulaire
+        const nomCategorieOption = document.createElement ("option");
+        nomCategorieOption.textContent = categorie.name;
+        nomCategorieOption.id = categorie.id;
+
+        categorieSelect.appendChild(nomCategorieOption);
+
+    });
 }
 
-    //Apparition & disparition fenêtre modale
+async function recupererCategories() {
+    const reponse = await fetch(baseurl + "/categories");
+    const boutonCategories = await reponse.json();
+    return boutonCategories;
+}
+
+//Apparition & disparition fenêtre modale
 function ouvrirModal(){
-    console.log("debut fonction");
     const lienModifier = document.querySelectorAll(".ouvrir-modal-galerie");
     const modalGlobal = document.getElementById("modal");
     const modalGalerie = document.getElementById("modal-galerie-photo");
@@ -124,6 +150,7 @@ function ouvrirModal(){
         modalGlobal.setAttribute('role', 'dialog');
         modalGlobal.setAttribute('aria-modal', 'true');
         modalGlobal.setAttribute('aria-labelledby', 'modalTitle');
+        modalGlobal.removeAttribute('inert');
     }
 
     lienModifier.forEach(element =>{
@@ -132,34 +159,41 @@ function ouvrirModal(){
             modalGlobal.style.display= 'flex';
             modalGalerie.style.display= 'block';
             modalGlobal.removeAttribute('aria-hidden'); //rendre la modale visible aux lecteurs d'écran
+            modalGlobal.removeAttribute('inert');
             ajoutProjets(categorieFiltreActive);//met à jour la galerie principale ET la modale
         });
     });
 }
-//fermeture modal par la croix
-function fermerModal(){
-    const croixFermer = document.querySelectorAll(".js-modal-fermer");
-    const modalGlobal = document.getElementById("modal");
-    const modalGalerie = document.getElementById("modal-galerie-photo");
-
-    croixFermer.forEach(element =>{
-        element.addEventListener('click', () =>{
-            console.log("Dans le click");
-            modalGlobal.style.display= 'none';
-            modalGalerie.style.display= 'none';
-            modalGlobal.setAttribute('aria-hidden', 'true'); //cache la modale des lecteurs 
-        });
-    });
-//fermeture en dehors du modal 
-modalGlobal.addEventListener('click', (event) => { //modalGlobal=gère le contenu du modale + le vide autour
-    if (event.target ===modalGlobal){ //event se passe lorsqu'il y a un click, seulement sur l'arrière plan 
-        console.log("Fermture en cliquant à côté du modal");
-        modalGlobal.style.display= 'none';
-        modalGalerie.style.display= 'none';
-        modalGlobal.removeAttribute('aria-hidden', 'true');
+    //Fonction fermer 3 modale
+function fermerModal() {
+        console.log("Fermeture des modales")
+        modalGlobal.style.display = 'none';
+        modalGalerie.style.display = 'none';
+        modalAjoutPhoto.style.display = 'none';
+        modalGlobal.setAttribute('inert', '');
+        modalGlobal.removeAttribute('aria-hidden'); //cache la modale des lecteurs 
+        reinitialiserFormulaireAjout();
+        formulaireIncomplet(false);
     }
-})
+    //Fermeture au click (croix + en dehors modale)
+function fermetureModalClick(){
+        const croixFermer = document.querySelectorAll(".js-modal-fermer");
+    
+        croixFermer.forEach(element =>{
+            element.addEventListener('click', () =>{
+                fermerModal();
+                });
+        });
+
+    modalGlobal.addEventListener('click', (event) => { //modalGlobal=gère le contenu du modale + le vide autour
+        if (event.target ===modalGlobal){ //event se passe lorsqu'il y a un click, seulement sur l'arrière plan 
+            console.log("Fermture en cliquant à côté du modal");
+            fermerModal();
+        };
+    });
 }
+
+
 
 //fonction supprimer projet
 async function supprimerProjet(idProjetASupprimer){
@@ -183,4 +217,229 @@ async function supprimerProjet(idProjetASupprimer){
         }
     });
     ajoutProjets(categorieFiltreActive); //raffraichir page d'accueil + modal 
+}
+
+
+//function envoi d'un nouveau projet au back-end 
+async function pageNewProjet(){
+    const boutonAjouter = document.querySelector(".js-modal-add-photo");
+    const modalGlobal = document.getElementById("modal");
+    const modalAjoutPhoto = document.getElementById("modal-ajout-photo");
+    const modalGalerie = document.getElementById("modal-galerie-photo");
+    
+
+    if(modalGlobal){
+        modalGlobal.setAttribute('role', 'dialog');
+        modalGlobal.setAttribute('aria-modal', 'true');
+        modalGlobal.setAttribute('aria-labelledby', 'modalTitle');
+    }
+
+    boutonAjouter.addEventListener('click', () =>{
+        console.log("dans le click")
+        modalGlobal.style.display= 'flex';
+        modalAjoutPhoto.style.display= 'block';
+        modalGalerie.style.display= 'none';
+        modalGlobal.removeAttribute('aria-hidden');
+        modalGlobal.removeAttribute('inert');
+            });
+             
+        reinitialiserFormulaireAjout();
+    
+    //Ecouteurs pour la validation du formulaire d'ajout de projet 
+    inputTitre.addEventListener('input', checkAddPhotoForm);
+    selectCategorie.addEventListener('change', checkAddPhotoForm);
+    fileInput.addEventListener('change', checkAddPhotoForm); // Appelle la fonction de vérification quand un fichier est sélectionné
+
+    //Gérer la soumission du formulaire
+    formAddProjet.addEventListener('submit', async (event)=>{
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('title', inputTitre.value.trim()); //.append = ajouter des données / title = nom du champ identifié par le serveur/inputTitre.value.trim=valeur de title 
+        //inputTitre =élément d'entrée HTML ; .value =récupère texte saisi dans le champ ;.trim()=supprimer les espaces du début et de la fin d'une chaine de carac.
+        formData.append('category', selectCategorie.options[selectCategorie.selectedIndex].id);
+        formData.append('image', fileInput.files[0]);
+        try{
+            const token = localStorage.getItem('authToken');
+            console.log("Token utilisé pour l'ajout:", token);
+
+            const response = await fetch(baseurl + "/works", { //appel API pour envoyer objet formData au serveur 
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData //données réelles que l'on souhaite envoyer
+            });
+            if (!response.ok){
+                const errorData = await response.json();
+                throw new Error(`Erreur API: ${response.status} - ${errorData.message || response.statusText}`);
+            }
+            alert('Projet ajouté avec succès!');
+
+            fermerModal();
+
+            //Ajout nouveau porjet à WorkSet + rafraichir galerie
+            await recupererProjets();
+            await ajoutProjets(categorieFiltreActive); //rafraîchit page 
+
+            
+            
+        } catch (error){
+            console.error('erreur lors de la soummission du formulaire', error);
+            alert(`Echec de l'ajout du projet: ${error.message}`);
+        }
+    });
+}
+
+//Function validation du formulaire 
+function checkAddPhotoForm(){
+    const isTitreFilled = inputTitre.value.trim() !== '';
+    const isCategorieSelected = selectCategorie.value !=='';
+    const isFileSelected = fileInput.files.length > 0;
+
+    const allFieldsFilled = isTitreFilled && isCategorieSelected && isFileSelected;
+    const noFieldsFilled = !isTitreFilled && !isCategorieSelected && !isFileSelected;
+    const afficheMessageErreur = !(allFieldsFilled || noFieldsFilled);
+
+    submitBoutonValider.disabled = !allFieldsFilled;
+    submitBoutonValider.style.backgroundColor = allFieldsFilled ? '#1D6154' : '#A7A7A7'; //si faux garder bouton 1D...;si vrai mettre A7,...
+ 
+    formulaireIncomplet(afficheMessageErreur);
+}
+
+//function ouvrir explorateur fichier 
+function configureExplorateurFichiers(){
+    const triggerButton = document.getElementById('triggerFileInput');
+    const fileInput = document.getElementById('fileInput');
+    const selectionnerPhotoDiv = document.querySelector('.selectionner-photo');
+    const iconImage = selectionnerPhotoDiv.querySelector('.fa-regular.fa-image');
+    const paragraphText = selectionnerPhotoDiv.querySelector('p');
+
+
+    if (triggerButton && fileInput){
+        triggerButton.addEventListener('click', () => {
+            console.log("Bouton +AjoutPhoto cliqué")
+            fileInput.click();
+        });
+        //Sélection de fichier et affichage aperçu
+        fileInput.addEventListener('change', (event) =>{
+            const file = event.target.files && event.target.files[0];
+
+            const lireFichier= new FileReader();
+
+            if (file){
+                if (file.type ==='image/jpeg' || file.type === 'image/png'){
+                    //validation taille fichier
+                    const maxSize = 4 * 1024 * 1024; //4Mo en octets
+                    if (file.size > maxSize){
+                        alert("La taille de l'image ne doit pas dépasser 4 Mo");
+                        fileInput.value = '';
+                        selectedImageFile = null;
+                        return;
+                    }
+                    //lire fichier et afficher un aperçu
+                   /* const lireFichier = new FileReader();*/
+                    lireFichier.onload = function(e){
+                        //masquer les éléments d'origine
+                        iconImage.style.display = 'none';
+                        triggerButton.style.display = 'none';
+                        paragraphText.style.display = 'none';
+                        selectionnerPhotoDiv.style.paddingTop = '0';
+
+                        //supprimer un ancien aperçu si existant
+                        const existantAperçu = selectionnerPhotoDiv.querySelector ('image-preview');
+                        if (existantAperçu){
+                            selectionnerPhotoDiv.removeChild(existantAperçu);
+                        }
+
+                        //créer et ajouter l'image d'aperçu
+                        const imgAperçu = document.createElement('img');
+                        imgAperçu.src = e.target.result;
+                        imgAperçu.alt = "Aperçu de l'image sélectionnée";
+                        imgAperçu.classList.add('img-aperçu');
+                        //Style CSS 
+                        imgAperçu.style.maxWidth = '100%';
+                        imgAperçu.style.maxHeight = '100%';
+                        imgAperçu.style.objectFit = 'contain';
+
+                        selectionnerPhotoDiv.appendChild(imgAperçu);
+
+                        //stocker fichier sélectionné dans variable globale
+                        imageSelectionee = file;
+                        console.log("Fichier image sélectionné:", file.name, file.size, file.type);
+                    };
+                    lireFichier.readAsDataURL(file); // Lit le contenu du fichier comme une URL de données 
+                     } else{
+                        alert("Veuillez sélectionner un fichier image au format JPEG ou PNG.");
+                        fileInput.value = '';
+                        imageSelectionee = null;
+                     };
+            };
+        });
+    };
+}
+//Function réinitliser affichage de l'aperçu 
+function reinitialiserAperçuPhoto(){
+    const selectionnerPhotoDiv = document.querySelector('.selectionner-photo');
+    const iconImage = selectionnerPhotoDiv.querySelector('.fa-regular.fa-image');
+    const triggerButton = document.getElementById('triggerFileInput');
+    const paragraphText = selectionnerPhotoDiv.querySelector('p');
+    const existantAperçu = selectionnerPhotoDiv.querySelector('.img-aperçu');
+
+    if (existantAperçu){
+        selectionnerPhotoDiv.removeChild(existantAperçu);
+    }
+    if (iconImage) iconImage.style.display = 'block';
+    if (triggerButton) triggerButton.style.display = 'block';
+    if (paragraphText) paragraphText.style.display = 'block';
+   
+    imageSelectionee = null;
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) fileInput.value = '';
+}
+
+//Function pour réinitiser complètement le formulaire d'ajout de photo
+function reinitialiserFormulaireAjout(){
+    //réinitialiser champs formulaire
+    const form = document.getElementById('formulaire-titre-categorie');
+    if (form){
+        form.reset();
+    };
+    //appeler fonction réinitialisation aperçu imahe
+    reinitialiserAperçuPhoto();
+    //désactiver bouton "valider"
+    const boutonValider = document.getElementById('boutonValider');
+    if (boutonValider){
+        boutonValider.setAttribute('disabled','true');
+        boutonValider.style.backgroundColor =' #A7A7A7';
+    };
+}
+
+// Function pour gérer le bouton de retour 
+function gererRetourModal() {
+    const boutonPrecedent = document.querySelector(".js-modal-precedent");
+    const modalGalerie = document.getElementById("modal-galerie-photo");
+    const modalAjoutPhoto = document.getElementById("modal-ajout-photo");
+
+    if (boutonPrecedent && modalGalerie && modalAjoutPhoto) {
+        boutonPrecedent.addEventListener('click', () => {
+            console.log("Clic sur le bouton 'Retour': retour à la modale galerie.");
+            modalAjoutPhoto.style.display = 'none'; 
+            modalGalerie.style.display = 'block';   
+          
+            reinitialiserFormulaireAjout();  
+            formulaireIncomplet(false);
+        });
+    };
+}
+//Function message erreur ajout d'un nouveau projet
+function formulaireIncomplet(afficherMessage){
+    const champsIncomplets = document.getElementById("champs-incomplets");
+    
+    if (afficherMessage) {
+        champsIncomplets.style.display ='block';
+    }else{
+        champsIncomplets.style.display ='none';
+    }
+    
 }

@@ -109,26 +109,30 @@
 				</button>
 				<h3 id="modalAddPhotoTitle">Ajout Photo</h3>
 				<div class="modal-ajout">
+					<form id="formulaire-titre-categorie">
 					<div class="selectionner-photo">
 						<i class="fa-regular fa-image"></i>
-						<button class="add-photo" aria-label="Ajouter une photo">+ Ajouter photo</button>
-						<p>jpg, png : 4mo max</p>
+						<button type="button" class="add-photo" aria-label="Ajouter une photo" id="triggerFileInput">+ Ajouter photo</button>
+						<input type="file" name="image" id="fileInput" accept="image/jpeg, image/png" style="display: none;">
+						<p>jpg, png : 4mo max</p>					
 					</div>
-					<form id="formulaire-titre-categorie">
+
 						<div class="titre">
 							<label for="titre">Titre</label>
-							<input type="text" id="titre" name="titre"required autocomplete="titre">
+							<input type="text" id="titre" name="title" autocomplete="titre">
+							
 						</div>
 						<div class="categorie">
 							<label for="categorie">Catégorie</label>	
-							<select id="categorie" name="categorie" required>
+							<select  id="select-categorie" name="categoryId" >
 								<option value=""></option>
 							</select>
 						</div>
+						<hr class="modal-separation">
+						<p id="champs-incomplets"style="display: none;">Veuillez compléter les 3 éléments du formulaire</p>
+						<button type="submit" class="js-modal-valider"id="submitBoutonValider" data-target="modal-valider" disabled>Valider</button>
 					</form>
 				</div>
-				<hr class="modal-separation">
-				<button class="js-modal-valider"id="boutonValider" data-target="modal-valider" disabled>Valider</button>
 			</div>
 		</div>
 	</div>

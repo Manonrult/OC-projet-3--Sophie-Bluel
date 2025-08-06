@@ -23,6 +23,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+   box-sizing: border-box;
+    padding-bottom: 20px;
     
 }
 .js-modal-precedent, .js-modal-fermer{
@@ -50,17 +52,27 @@ h3{
     margin-top: 60px;
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    width: 420px;
 }
 
-.modal-separation{
+#galerie-miniature .modal-separation{
     color: #B3B3B3;
     border-width: 1px;
     width: 420px;
     margin-top: 65px;
     margin-bottom: 40px;
 }
-
+modal-content{
+    display: flex;
+    flex: column;
+    height: 688px;
+    width: 100%; 
+    flex-grow: 1; 
+    overflow-y: auto; 
+    padding: 0 20px; 
+    box-sizing: border-box; 
+}*/
 /*****Styles modal Galerie photo*****/
 #modal-galerie-photo{
     display: none;
@@ -86,24 +98,42 @@ h3{
     display: flex;
     flex-wrap: wrap;
     gap:8px;
-    justify-content: center;
+    justify-content: flex-start;
+    padding: 20px 0; /* Ajoute un peu d'espace vertical */
+    overflow-y: auto; /* Permet le défilement si trop d'images */
+    flex-grow: 1; 
 }
 
 .miniature-item{
     position: relative;
-    flex:1 1 calc(20% - 8px);
+    width: calc(20% - 8px);
+    /*padding-bottom: calc (20% - 8px * 0.75);*/
+    flex: 1 1 calc(20% - 8px);
     max-width: calc(20% - 8px);
-    height: 102.57px;
+   height: 102.57px;
+  
    display: flex;
    justify-content: center;
    align-items: center;
-   margin-top: 20px;
+   margin-top: 0px;
    
 }
 .miniature-item img{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.modal-wrapper .js-modal-add-photo,
+.modal-wrapper #submitBoutonValider {
+    margin-top: 40px; 
+    margin-bottom: 20px; 
+    width: 237px;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto; 
 }
 
 /*Style icône suppression*/
@@ -139,10 +169,114 @@ h3{
     flex-direction: column;
     padding-top: 8px;
 }
-.selectionner-photo i{
-    color:#B9C5CC ;
-    font-size: 68px;
+.selectionner-photo i{/*Style icône suppression*/
+    .miniature-item .fa-trash-can{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #000000;
+        color:white;
+        padding: 3px;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
+    /*****Modal Ajout Projets*****/
+    #modal-ajout-photo{
+        display: none;
+    }
+    
+    .modal-ajout{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .selectionner-photo{
+        background-color: #E8F1F6;
+        width: 420px;
+        height: 169px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 8px;
+    }
+    .selectionner-photo i{
+        color:#B9C5CC ;
+        font-size: 68px;
+        padding-top: none;
+    }
+    .add-photo{
+        border-radius:50px;
+        background-color: #CBD6DC;
+        border: none;
+        color: #306685;
+        width: 173px;
+        height: 36px;
+        size: 14px;
+        font-family: Work Sans;
+        font-weight: bold;
+        margin: 10px 0px 10px 0px;
+    }
+    .selectionner-photo p{
+        font-size: 10px;
+        font-family: Work Sans;
+        color: #444444;
+    }
+    
+    .titre, .categorie{
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+        margin-bottom:40px ;
+        font-family: Work Sans;
+        font-size: 14px;
+        color: #3D3D3D;
+        font-weight: 600;
+        
+    }
+    .titre input, .categorie select{
+        border-style: none;
+        box-shadow:0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+        background-color: #FFFFFF;
+        height: 51px;
+        width: 420px;
+        margin-top: 10px;   
+        color: #444444;
+        
+    }
+    #categorie {
+        -webkit-appearance: none; /* Pour Chrome, Safari, Edge */
+        -moz-appearance: none;    /* Pour Firefox */
+        appearance: none;         /* Standard */
+        
+        background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpolyline points="6 9 12 15 18 9"%3E%3C/polyline%3E%3C/svg%3E'); /* Exemple d'icône SVG base64 (flèche vers le bas) */
+        background-repeat: no-repeat;
+        background-position: right 25px center; 
+        background-size: 14px; 
+        color: #6C6C6C;
+        
+    }
+    
+    #submitBoutonValider{
+        background-color:#A7A7A7 ;
+        width: 237px;
+        margin-top: 20px;
+        height: 36px;
+        font-family: Syne;
+        font-weight: bold;
+        font-size: 14px;
+        color: #FFFFFF;
+        border-radius: 60px;
+        border-style: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+   
+
 .add-photo{
     border-radius:50px;
     background-color: #CBD6DC;
@@ -180,21 +314,12 @@ h3{
     width: 420px;
     margin-top: 10px;   
     color: #444444;
+    padding-left: 15px;
     
-}
-#categorie {
-    -webkit-appearance: none; /* Pour Chrome, Safari, Edge */
-    -moz-appearance: none;    /* Pour Firefox */
-    appearance: none;         /* Standard */
-    
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpolyline points="6 9 12 15 18 9"%3E%3C/polyline%3E%3C/svg%3E'); /* Exemple d'icône SVG base64 (flèche vers le bas) */
-    background-repeat: no-repeat;
-    background-position: right 25px center; 
-    background-size: 14px; 
-    color: #6C6C6C;
 }
 
-#boutonValider{
+
+#submitBoutonValider{
     background-color:#A7A7A7 ;
     width: 237px;
     margin-top: 20px;
@@ -205,4 +330,29 @@ h3{
     color: #FFFFFF;
     border-radius: 60px;
     border-style: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#select-categorie{
+    font-family: Work Sans;
+    font-size: 14px;
+    border-color: #A7A7A7;
+
+    -webkit-appearance: none; /* Pour Chrome, Safari, Edge */
+    -moz-appearance: none;    /* Pour Firefox */
+    appearance: none;         /* Standard */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpolyline points="6 9 12 15 18 9"%3E%3C/polyline%3E%3C/svg%3E'); /* Exemple d'icône SVG base64 (flèche vers le bas) */
+    background-repeat: no-repeat;
+    background-position: right 25px center; 
+    background-size: 14px; 
+    color: #444444;
+
+   
+}
+#champs-incomplets {
+    font-family: Work Sans;
+	size: 16px;
+	color:#B1663C;
+	font-weight: bold;
 }

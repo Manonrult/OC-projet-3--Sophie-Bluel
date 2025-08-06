@@ -8,11 +8,8 @@ function updateLoginLink(){
     const modeEdition = document.getElementById('mode-edition');
     const editerProjetsSpan = document.getElementById('editer-projets');
     const token = localStorage.getItem('authToken');
-console.log ('toto');
     if(loginLogoutLink){
-        
-console.log ('titi');
-        if (token) {
+                if (token) {
             // si l'utiloisation est connecté
             loginLogoutLink.textContent = 'logout';
             loginLogoutLink.href ='#'; //le lien ne mêne plus à login.html
