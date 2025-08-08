@@ -68,8 +68,8 @@ footer {
 	background-color: #FFFFFF;
 	width: 100%;
 	height: 60px;
-	font-size: Work Sans;
-	size: 14px;
+	font-family: 'Work Sans';
+	font-size: 14px;
 	font-weight: 300;
 	display: flex;
 	justify-content: flex-end;
@@ -264,7 +264,7 @@ nav ul li.active-page a{
 	justify-content: center;
 	flex-direction: column;
 	font-size: 14px;
-	font-family: Work Sans;
+	font-family: 'Work Sans';
 	gap:5px;
 	margin-bottom:20px ;
 }
@@ -285,14 +285,14 @@ nav ul li.active-page a{
 	box-shadow:0px 4px 14px 0px rgba(0, 0, 0, 0.09) ;
 }
 .mot-de-passe-oublie {
-	font-family: Work Sans;
+	font-family: 'Work Sans';
 	color:#3D3D3D;
-	size: 14px;
+	font-size: 14px;
 	text-align: center;
 }
 .error-message{
-	font-family: Work Sans;
-	size: 16px;
+	font-family: 'Work Sans';
+	font-size: 16px;
 	color:#B1663C;
 	font-weight: bold;
 }
@@ -304,7 +304,7 @@ nav ul li.active-page a{
 #mode-edition {
 	background-color:#000;
 	color:#FFFFFF;
-	font-family: Work Sans;
+	font-family: 'Work Sans';
 	font-size: 16px;
 	text-align: center;
 	height: 59px;
@@ -320,7 +320,7 @@ nav ul li.active-page a{
 
 #editer-projets{
 	color:#000;
-	font-family: Work Sans;
+	font-family: 'Work Sans';
 	font-size: 14px;
 	font-weight: normal;
 	padding-left: 20px;

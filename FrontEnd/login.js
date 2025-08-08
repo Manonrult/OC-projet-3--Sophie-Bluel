@@ -1,6 +1,6 @@
 //Début du code 
-
-        boutonConnexion();
+import { updateLoginLink } from './commun.js';
+boutonConnexion();
 
 //Fonctions 
 function displayErrorMessage(message) {
@@ -85,12 +85,12 @@ async function login() {
             const errorMessage = data.message || `Erreur HTTP: ${reponse.status}. Une erreur inconnue est survenue.`;
             displayErrorMessage(errorMessage);
             
-            console.error('Erreur API (HTTP:',reponse.status, data)
+            console.error('Erreur API HTTP:',reponse.status, data)
         }
 
     }catch (error){
         displayErrorMessage('Impossible de se connecter au serveur. Veuillez vérifier votre connexion internet ou réessayer plus tard.');
-        console.error('Erreur de reseau ou de parsing Json:');
+        console.error('Erreur de reseau ou de parsing Json:', error);
     }
 }
 

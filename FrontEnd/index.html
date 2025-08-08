@@ -119,18 +119,18 @@
 
 						<div class="titre">
 							<label for="titre">Titre</label>
-							<input type="text" id="titre" name="title" autocomplete="titre">
+							<input type="text" id="titre" name="title" autocomplete="on">
 							
 						</div>
 						<div class="categorie">
-							<label for="categorie">Catégorie</label>	
+							<label for="select-categorie">Catégorie</label>	
 							<select  id="select-categorie" name="categoryId" >
 								<option value=""></option>
 							</select>
 						</div>
 						<hr class="modal-separation">
-						<p id="champs-incomplets"style="display: none;">Veuillez compléter les 3 éléments du formulaire</p>
-						<button type="submit" class="js-modal-valider"id="submitBoutonValider" data-target="modal-valider" disabled>Valider</button>
+						<p id="champs-incomplets" style="display: none;">Veuillez compléter les 3 éléments du formulaire</p>
+						<button type="submit" class="js-modal-valider" id="submitBoutonValider" data-target="modal-valider" disabled>Valider</button>
 					</form>
 				</div>
 			</div>
@@ -139,6 +139,6 @@
 </div>
 
 	<script src="script.js"></script>
-	<script src="commun.js"></script>
+	<script src="commun.js" type="module"></script>
 </body>
 </html>
