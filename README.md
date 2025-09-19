@@ -35,7 +35,7 @@ Ce repo git contient les 2 briques logicielles du projet
   
 **Cloner le dépôt :**
     ```bash
-    git clone https://github.com/Manonrult/OC-projet-3--Sophie-Bluel
+    git clone [https://github.com/Manonrult/OC-projet-3--Sophie-Bluel.git](https://github.com/Manonrult/OC-projet-3--Sophie-Bluel.git)
     ```
 ## Pour le lancer le code
 ### Backend
